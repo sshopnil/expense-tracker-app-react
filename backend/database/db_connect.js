@@ -1,16 +1,17 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
+require('dotenv').config();
+const uri = process.env.MONGO_URL
 
-const connectDB = async ()=> {
+const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+
+async function connectDB() {
   try {
-    mongoose.set('strictQuery', false);
-    await mongoose.connect(process.env.MONGO_URL);
-    console.log("Successfully connected to MongoDB!");
-  }
-  catch(e){
-    console.log('DB connection error');
-  } 
-  finally {
-    await mongoose.disconnect();
+    // Connect to MongoDB
+    await mongoose.connect(uri, clientOptions);
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (error) {
+    console.error("Failed to connect to MongoDB:", error.message);
   }
 }
-export default connectDB;
+
+module.exports = connectDB;

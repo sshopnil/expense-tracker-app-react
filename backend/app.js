@@ -1,32 +1,36 @@
 //essential includes
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
 
 //other includes
-import connectDB from './database/db_connect.js';
+const connectDB = require('./database/db_connect');
+const transactionRouter = require('./routes/transactions.route');
 
 
-dotenv.config();
+//configurations
+require('dotenv').config();
+const PORT = process.env.PORT || 5001;
 
-const port = process.env.PORT;
-
-
+//middlewares
 app.use(express.json());
 app.use(cors());
 
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
+//routes
+app.use('/transaction', transactionRouter);
 
 const server = () =>{
     connectDB();
-    app.listen(port, () => {
-        console.log(`Backend app listening on port ${port}`)
-    });
+    app.listen(5002, () => {
+        console.log(`Server is running on port ${PORT}`);
+      }).on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+          console.error(`Port ${PORT} is already in use.`);
+        } else {
+          console.error(err);
+        }
+      });
 }
 server();
 
