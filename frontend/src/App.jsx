@@ -1,10 +1,9 @@
-// import DashBoard from './screens/dashboard'
-import DashboardLayoutBasic from './screens/BasicDashBoard'
+import DashBoard from './screens/dashboard'
 import { AppProvider } from '@toolpad/core/AppProvider';
 function App() {
   return (
     <AppProvider>
-      <DashboardLayoutBasic/>
+      <DashBoard/>
     </AppProvider>
   )
 }
