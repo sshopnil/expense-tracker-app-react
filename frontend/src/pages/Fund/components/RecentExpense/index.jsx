@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material'
 import '../styles/fundhistory.css'
-import HistoryIcon from '@mui/icons-material/History';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 
-export const FundHistory = () =>{
+export const RecentExpense = () =>{
     return(
         <div className="history-card">
             <Typography
@@ -13,8 +13,8 @@ export const FundHistory = () =>{
                 alignItems: 'center',
             }}
             >
-                <HistoryIcon sx={{marginRight: '10px',color: '#a7e6c8', fontSize: 20, alignSelf:'center', textAlign: 'center'}}/>
-                Fund History
+                <PointOfSaleIcon sx={{marginRight: '10px',color: '#a7e6c8', fontSize: 20, alignSelf:'center', textAlign: 'center'}}/>
+                Recent Expenses
                 </Typography>
         </div>
     )

@@ -1,17 +1,17 @@
 import { BalanceCard } from "./components/BalanceCard/BalanceCard"
 import { AddForm } from "./components/AddForm"
-import { FundHistory } from "./components/FundHistory"
-import { AccountBalance } from "./components/AccountBalance"
+import { RecentExpense } from "./components/RecentExpense"
+import { BalanceTrend } from "./components/BalanceTrend"
 import './fund.css'
-export const Fund = () =>{
-    return(
+export const Fund = () => {
+    return (
         <div className="container">
-            <AddForm/>
+            <AddForm />
             <div className="middle">
-            <BalanceCard/>
-            <AccountBalance/>
+                <BalanceCard />
+                <BalanceTrend />
             </div>
-            <FundHistory/>
+            <RecentExpense />
         </div>
     )
 }
