@@ -1,7 +1,7 @@
-export const About = () =>{
+export const Fund = () =>{
     return(
         <div>
-            About
+            Fund
         </div>
     )
 }

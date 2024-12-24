@@ -5,12 +5,21 @@ import { Typography } from '@mui/material';
 
 const Sidebar = () => {
 
+const linkStyles = ({isActive}) =>{
+  return{
+    backgroundColor: isActive ? '#2d9edb9a' : 'transparent',
+    borderRadius: '10px'
+  }
+}
+
+
   return (
     <div className="sidebar">
       <Typography className='sidebar-title'>Expense <span style={{color:'#e9524a'}}>Tracker</span></Typography>
       <hr className='line'/>
-      <NavLink to={'/'} className='sidebar-item'>Home</NavLink>
-      <NavLink to={'/about'} className='sidebar-item'>About</NavLink>
+      <NavLink style={linkStyles} to={'/'} className='sidebar-item'>Fund</NavLink>
+      <NavLink style={linkStyles} to={'/Expense'} className='sidebar-item'>Expense</NavLink>
+      <NavLink style={linkStyles} to={'/Reports'} className='sidebar-item'>Reports</NavLink>
     </div>
   );
 };

@@ -9,6 +9,7 @@
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   align-items: center;
+  padding: 10px;
 }
 .sidebar-title{
   color: aliceblue;
@@ -37,9 +38,9 @@
 
 .sidebar-item:hover {
   transition: background-color 0.3s;
-  background-color: #dbdbdba9;
+  background-color: #2d9edb9a;
   border-radius: 10px;
-  color: #333;
+  color: #ffffff;
 
 }
 
