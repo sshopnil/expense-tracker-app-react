@@ -8,42 +8,59 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import '../styles/addform.css'
+import { Button, Typography } from '@mui/material';
 
-export const AddForm =()=> {
-  const [category, setCategory] = React.useState('');
+export const AddForm = () => {
+  const [account, setAccount] = React.useState('');
 
   const handleChange = (event) => {
-    setCategory(event.target.value);
+    setAccount(event.target.value);
   };
 
   return (
     <Paper
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 700, boxSizing: 'border-box',
+      sx={{
+        p: '2px 4px', display: 'flex', alignItems: 'center', width: 700, boxSizing: 'border-box',
         background: '#30355b',
         borderRadius: '10px',
         border: '1px solid rgba(255, 255, 255, 0.18)',
         margin: '50px',
-        padding: '15px',
-    }}
+        '& .MuiSelect-root': {
+          borderColor: 'white !important'
+        },
+      }}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1, color:'white', fontVariantNumeric: 'oldstyle-nums'}}
+        sx={{ ml: 1, flex: 1, color: 'white', fontVariantNumeric: 'oldstyle-nums' }}
         placeholder="Add Balance"
         inputProps={{ 'aria-label': 'Enter a number' }}
         type='number'
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <FormControl sx={{ boxSizing: 'border-box', height: 'auto', width: '10vw', borderColor:'white !important'}}>
-        <InputLabel id="demo-simple-select-label" sx={{color:'white !important'}}>Source</InputLabel>
+      <FormControl variant='standard' sx={{ boxSizing: 'border-box',marginBottom:'15px', height: 'auto', width: '10vw', borderColor: 'white !important' }}>
+        <InputLabel id="demo-simple-select-label" sx={{ color: 'white !important' }}>Account</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={category}
-          label="category"
+          value={account}
+          label="account"
           onChange={handleChange}
           sx={{
-            color:'white !important'
+            color: 'white !important',  // Text color
+            '.MuiSvgIcon-root': {
+              color: 'white !important'  // Dropdown icon color
+            },
+            '.MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white !important',  // Border color
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white !important',  // Hover border color
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white !important',  // Focus border color
+            },
           }}
         >
           <MenuItem value={10}>Cash</MenuItem>
@@ -51,9 +68,9 @@ export const AddForm =()=> {
           <MenuItem value={30}>Other</MenuItem>
         </Select>
       </FormControl>
-      <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-        <AddBoxIcon />
-      </IconButton>
+      <Button sx={{backgroundColor: "#2d9edb9a", margin:"0 10px"}} variant="contained" endIcon={<AddBoxIcon sx={{fontSize:'50px'}}/>}>
+        Add
+      </Button>
     </Paper>
   );
 }
