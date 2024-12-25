@@ -21,11 +21,11 @@ export const BalanceCard = () =>{
             </Typography>
             <Typography
             sx={{
-                fontSize: {md: 36, sm: 20},
+                fontSize: {md: 64, sm: 20},
                 textAlign: 'center',
                 margin:'20px 0'
             }}
-            >0.00</Typography>
+            >0.00 ৳</Typography>
         </Box>
     )
 }

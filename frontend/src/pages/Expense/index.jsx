@@ -1,6 +1,6 @@
 import { ExpenseRecord } from "./components/AddExpense"
 import { ExpenseTrack } from "./components/ExpenseTrackByDay"
-import { ExpenseThisMonth } from "./components/ExpenseMonth"
+import { RecentExpenses } from "./components/RecentExpenses"
 import './expense.css'
 export const Expense = () => {
     return (
@@ -14,7 +14,7 @@ export const Expense = () => {
             <ExpenseTrack />
             <div className="last-section">
                 <ExpenseRecord />
-                <ExpenseThisMonth />
+                <RecentExpenses />
             </div>
         </div>
     )

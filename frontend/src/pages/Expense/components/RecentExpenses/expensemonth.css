@@ -1,6 +1,7 @@
 .expense-container{
-    height: 64.5vh;
-    width: 53vw;
+    height: auto;
+    width: 52.5vw;
+    margin-left: 0.5vw;
     box-sizing: border-box;
     background: #30355b;
     border-radius: 10px;

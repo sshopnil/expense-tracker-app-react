@@ -1,16 +1,25 @@
 .track-section{
     width: 80vw;
-    height: 20vh;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
     
 }
 .box{
-    height: 20vh;
+    height: 10vh;
     width: 25vw;
     box-sizing: border-box;
     background: #30355b;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.grouped-info{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    padding: 10px;
 }

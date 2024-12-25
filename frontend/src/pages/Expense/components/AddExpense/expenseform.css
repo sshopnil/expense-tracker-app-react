@@ -1,5 +1,5 @@
 .expense{
-    height: 64.5vh;
+    height: auto;
     width: 25vw;
     box-sizing: border-box;
     background: #30355b;
@@ -9,4 +9,11 @@
     flex-direction: column;
     justify-items: center;
     align-items: center;
+}
+.expense-form{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 15px;
 }

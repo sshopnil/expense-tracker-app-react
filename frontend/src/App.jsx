@@ -6,7 +6,7 @@ import { Fund } from './pages/Fund'
 import Sidebar from "./components/Sidebar/Sidebar";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
-import { TopBar } from './components/TopBar';
+// import { TopBar } from './components/TopBar';
 
 
 function App() {
@@ -19,8 +19,8 @@ function App() {
                     </Box>
                 </Grid>
                 <Grid size={10} >
-                    <Box sx={{ padding: '20px', boxSizing: 'border-box', color:'white'}}>
-                        <TopBar/>
+                    <Box sx={{ padding: '20px', boxSizing: 'border-box', color:'white', margin:'auto', height:'94.5vh'}}>
+                        {/* <TopBar/> */}
                         <Routes>
                             <Route path="/" element={<Fund />} />
                             <Route path="Expense" element={<Expense />} />

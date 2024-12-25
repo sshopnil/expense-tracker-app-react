@@ -5,7 +5,9 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-
+import dayjs from 'dayjs';
+import Button from '@mui/material/Button';
+import PublishIcon from '@mui/icons-material/Publish';
 
 
 const categories = [
@@ -13,10 +15,11 @@ const categories = [
 ];
 
 export const ExpenseRecord = () => {
+  const [value, setValue] = React.useState(dayjs());
 
   return (
     <Box className="expense">
-      <Typography sx={{marginTop:'50px', fontWeight:'bold', textTransform:'uppercase'}}>Add Expense</Typography>
+      <Typography sx={{ marginTop: '30px', fontWeight: 'bold', textTransform: 'uppercase' }}>Add Expense</Typography>
       <Box
         component="form"
         sx={{ '& > :not(style)': { m: 1, width: '20vw' }, padding: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
@@ -68,7 +71,6 @@ export const ExpenseRecord = () => {
               fontSize: '14px'
             },
             '.MuiFormLabel-root::after': {
-              color: 'white',
               fontSize: '14px'
             },
             '.MuiInputBase-root::after': {
@@ -91,14 +93,13 @@ export const ExpenseRecord = () => {
               borderBottom: '1px solid #e9524a !important',
             },
             '.MuiNativeSelect-select': {
-              option: {
-                backgroundColor: '#202447',
-                borderColor: '#e9524a',
-                fontSize: '14px'
-
-              },
               color: 'white',
               borderBottom: '2px solid white !important',
+              fontSize: '14px'
+            },
+            '.css-a4seda-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option': {
+              backgroundColor: '#202447 !important',
+              borderColor: '#e9524a',
               fontSize: '14px'
             },
             '.MuiSvgIcon-root': {
@@ -115,9 +116,37 @@ export const ExpenseRecord = () => {
           }
         </NativeSelect>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={['DateTimePicker']}>
-            <DateTimePicker label="Basic date time picker" sx={{color:'white'}}/>
-          </DemoContainer>
+        <DateTimePicker
+        label="Incurred On"
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        slotProps={{ textField: { variant: "standard" } }}
+        sx={{
+          '.MuiInputBase-root': {
+              input: {
+                color: 'white',
+                fontSize: '16px',
+              }
+            },
+            '.MuiFormLabel-root': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiFormLabel-root::after': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiInputBase-root::after': {
+              borderBottom: '1px solid white !important',
+            },
+            '.MuiInputBase-root::before': {
+              borderBottom: '1px solid white !important',
+            },
+            '.MuiSvgIcon-root': {
+              color: 'white'
+            },
+        }}
+      />
         </LocalizationProvider>
         <TextField
           id="outlined-multiline-static"
@@ -148,6 +177,9 @@ export const ExpenseRecord = () => {
             }
           }}
         />
+        <Button sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<PublishIcon />}>
+        Submit
+      </Button>
       </Box>
     </Box>
   );
