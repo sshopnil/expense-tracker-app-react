@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './expenseform.css';
-import { TextField, Box, InputLabel, NativeSelect } from '@mui/material';
+import { TextField, Box, InputLabel, NativeSelect, Typography } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -16,6 +16,7 @@ export const ExpenseRecord = () => {
 
   return (
     <Box className="expense">
+      <Typography sx={{marginTop:'50px', fontWeight:'bold', textTransform:'uppercase'}}>Add Expense</Typography>
       <Box
         component="form"
         sx={{ '& > :not(style)': { m: 1, width: '20vw' }, padding: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
