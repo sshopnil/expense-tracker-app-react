@@ -1,0 +1,12 @@
+.expense{
+    height: 64.5vh;
+    width: 25vw;
+    box-sizing: border-box;
+    background: #30355b;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}

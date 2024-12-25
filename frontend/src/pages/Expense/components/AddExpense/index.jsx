@@ -1,55 +1,153 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import './expenseform.css';
+import { TextField, Box, InputLabel, NativeSelect } from '@mui/material';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-export const ExpenseRecord = ()=> {
-  const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+const categories = [
+  'Food and Drinks', 'Shopping', 'Housing', 'Transportation', 'Vehicle', 'Entertainment', 'Electronics', 'Financial Expenses', 'Investments'
+];
+
+export const ExpenseRecord = () => {
 
   return (
-    <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open responsive dialog
-      </Button>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
+    <Box className="expense">
+      <Box
+        component="form"
+        sx={{ '& > :not(style)': { m: 1, width: '20vw' }, padding: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
+        noValidate
+        autoComplete="off"
+        className='expense-form'
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Disagree
-          </Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+        <TextField
+          id="title"
+          label="Title"
+          variant='standard'
+          sx={{
+            '.MuiInputBase-root': {
+              input: {
+                color: 'white',
+                fontSize: '16px'
+              },
+            },
+            '.MuiFormLabel-root': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiFormLabel-root::after': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiInputBase-root::after': {
+              borderBottom: '1px solid white !important',
+            },
+            '.MuiInputBase-root::before': {
+              borderBottom: '1px solid white !important',
+            }
+          }}
+          type='text'
+        />
+        <TextField
+          id="amount"
+          label="Amount"
+          variant='standard'
+          sx={{
+            '.MuiInputBase-root': {
+              input: {
+                color: 'white',
+                fontSize: '16px',
+              }
+            },
+            '.MuiFormLabel-root': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiFormLabel-root::after': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiInputBase-root::after': {
+              borderBottom: '1px solid white !important',
+            },
+            '.MuiInputBase-root::before': {
+              borderBottom: '1px solid white !important',
+            }
+
+          }}
+          type='number'
+        />
+        <NativeSelect
+          defaultValue={30}
+          inputProps={{
+            name: 'age',
+          }}
+          sx={{
+            '.MuiInputBase-root': {
+              borderBottom: '1px solid #e9524a !important',
+            },
+            '.MuiNativeSelect-select': {
+              option: {
+                backgroundColor: '#202447',
+                borderColor: '#e9524a',
+                fontSize: '14px'
+
+              },
+              color: 'white',
+              borderBottom: '2px solid white !important',
+              fontSize: '14px'
+            },
+            '.MuiSvgIcon-root': {
+              color: 'white'
+            },
+            backgroundColor: 'transparent !important'
+          }}
+        >
+          <option value={''} disabled selected>Select a Category</option>
+          {
+            categories.map((category, index) => (
+              <option key={index} value={category}>{category}</option>
+            ))
+          }
+        </NativeSelect>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={['DateTimePicker']}>
+            <DateTimePicker label="Basic date time picker" sx={{color:'white'}}/>
+          </DemoContainer>
+        </LocalizationProvider>
+        <TextField
+          id="outlined-multiline-static"
+          label="Description"
+          multiline
+          rows={2}
+          variant='standard'
+          sx={{
+            '.MuiInputBase-root': {
+              textarea: {
+                color: 'white',
+                fontSize: '16px',
+              },
+            },
+            '.MuiFormLabel-root': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiFormLabel-root::after': {
+              color: 'white',
+              fontSize: '14px'
+            },
+            '.MuiInputBase-root::after': {
+              borderBottom: '1px solid white !important',
+            },
+            '.MuiInputBase-root::before': {
+              borderBottom: '1px solid white !important',
+            }
+          }}
+        />
+      </Box>
+    </Box>
   );
 }

@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import '../styles/fundhistory.css'
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 
-export const RecentExpense = () =>{
+export const TransactionLog = () =>{
     return(
         <div className="history-card">
             <Typography
@@ -14,7 +14,7 @@ export const RecentExpense = () =>{
             }}
             >
                 <PointOfSaleIcon sx={{marginRight: '10px',color: '#a7e6c8', fontSize: 20, alignSelf:'center', textAlign: 'center'}}/>
-                Recent Expenses
+                Transaction Log
                 </Typography>
         </div>
     )

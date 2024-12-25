@@ -1,21 +1,20 @@
 import { ExpenseRecord } from "./components/AddExpense"
-import ECalander from "./components/ECalander"
+import { ExpenseTrack } from "./components/ExpenseTrackByDay"
+import { ExpenseThisMonth } from "./components/ExpenseMonth"
 import './expense.css'
 export const Expense = () => {
     return (
-        <div 
+        <div
             style={{
-                display:'flex',
-                flexDirection:'column',
-                justifyContent:'center'
-            }}        
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+            }}
         >
-            <ExpenseRecord />
-            <div className="transactionSection">
-            <div className="calander-bg">
-                <ECalander/>
-            </div>
-            
+            <ExpenseTrack />
+            <div className="last-section">
+                <ExpenseRecord />
+                <ExpenseThisMonth />
             </div>
         </div>
     )
