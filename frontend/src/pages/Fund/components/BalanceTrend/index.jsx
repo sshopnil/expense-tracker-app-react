@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import '../styles/accountbalance.css';
 import TimelineIcon from '@mui/icons-material/Timeline';
-
+import BalanceChart from "./components/BalanceChart";
 export const BalanceTrend = () =>{
     return(
         <Box className = 'card'>
@@ -17,8 +17,8 @@ export const BalanceTrend = () =>{
             <TimelineIcon sx={{marginRight: '10px',color: '#f1ae1b', fontSize: 24, alignSelf:'center', textAlign: 'center'}}/>
                 
                 Balance Trend
-            
             </Typography>
+            <BalanceChart/>
         </Box>
     )
 }
