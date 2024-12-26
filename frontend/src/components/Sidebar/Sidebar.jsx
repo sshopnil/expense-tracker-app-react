@@ -15,7 +15,7 @@ const linkStyles = ({isActive}) =>{
 
   return (
     <div className="sidebar">
-      <Typography className='sidebar-title'>Expense <span style={{color:'#e9524a', fontSize: 22}}>Tracker</span></Typography>
+      <Typography className='sidebar-title'>Expense <span style={{color:'#e9524a', fontSize: 22, fontWeight:'bolder'}}>Tracker</span></Typography>
       <hr className='line'/>
       <NavLink style={linkStyles} to={'/'} className='sidebar-item'>Fund</NavLink>
       <NavLink style={linkStyles} to={'/Expense'} className='sidebar-item'>Expense</NavLink>

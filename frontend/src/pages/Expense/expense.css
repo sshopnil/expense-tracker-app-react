@@ -1,4 +1,6 @@
 .last-section{
+    height: 80vh;
     display: flex;
     gap: 2vw;
+    align-items: center;
 }
