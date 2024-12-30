@@ -9,7 +9,7 @@ const {get_all_expenses, add_expense, add_fund} = require('../services/transacti
 
 
 //routes
-router.post('/add-expense', add_expense);
+router.post('/add-expense/:user_id', add_expense);
 router.post('/add-fund/:user_id', add_fund);
 router.get('/expense', get_all_expenses);
 

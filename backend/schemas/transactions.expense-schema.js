@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ExpenseSchema = new Schema({
+  userId: { type: Number, required: true },
   title: {
     type: String,
     required: true,
@@ -25,9 +26,15 @@ const ExpenseSchema = new Schema({
   },
   description:{
     type: String,
-    required: true,
     trim: true,
   },
+});
+
+ExpenseSchema.virtual('User', {
+  ref: 'User',
+  localField: 'userId',
+  foreignField: 'user_id',  
+  justOne: false  
 });
 
 module.exports = mongoose.model('Expense', ExpenseSchema);
