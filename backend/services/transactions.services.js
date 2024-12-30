@@ -35,8 +35,9 @@ exports.add_expense = async (req, res, next) => {
 }
 
 exports.get_all_expenses = async (req, res, next) => {
+    const {user_id} = req.params;
     try {
-        const all_expenses = await ExpenseSchema.find();
+        const all_expenses = await ExpenseSchema.find({userId: user_id});
         res.json(all_expenses);
     }
     catch (e) {
@@ -86,3 +87,13 @@ exports.add_fund = async (req, res, next) => { //adding fund
         next();
     }
 }
+
+exports.get_fund = async(req, res, next)=>{
+    const {user_id} = req.params;
+    const funds = await FundModel.findOne({userId: user_id});
+    res.json(funds);
+}
+
+
+// ========================================forecasting services =============================================
+
