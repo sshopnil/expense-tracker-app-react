@@ -1,6 +1,6 @@
 
 const ExpenseSchema = require('../schemas/transactions.expense-schema');
-const IncomeSchema = require('../schemas/transactions.income-schema');
+const { FundModel } = require('../schemas/transactions.fund-schema');
 
 
 exports.add_expense = async (req, res, next) => {
@@ -38,8 +38,10 @@ exports.get_all_expenses = async (req, res, next) => {
     }
 }
 
-exports.add_income = async (req, res, next) => {
-    const income = IncomeSchema({ ...req.body });
+exports.add_fund = async (req, res, next) => {
+    // const fund = FundModel({ ...req.body });
+    const { user_id } = req.params;
+    const fund = await FundModel.findOne({ userId: user_id });
     try {
         if (!req.body) {
             return res.status(400).json({ msg: 'Invalid Request Body' });
@@ -47,13 +49,28 @@ exports.add_income = async (req, res, next) => {
         if (req.body.amount <= 0 || !req.body.amount === 'number') {
             return res.status(400).json({ msg: "Amount must be a positive number" });
         }
-        await income.save();
-        res.status(200).json({ msg: "Added to the fund" });
+        if (!fund) {
+            const newFund = new FundModel({
+                userId: user_id,
+                totalFund: req.body.amount,
+                transactions: [{ amount: req.body.amount }]
+            });
+            await newFund.save();
+            res.status(200).json({ msg: "New fund created!" });
+        }
+        else {
+            // console.log(typeof(fund.totalFund));
+
+            fund.totalFund += req.body.amount;
+            fund.transactions.push({ amount: req.body.amount });
+            await fund.save();
+            res.status(201).json({ msg: "fund updated" });
+        }
     }
-    catch(e){
+    catch (e) {
         console.log('error', e);
     }
-    finally{
+    finally {
         next();
     }
 }
