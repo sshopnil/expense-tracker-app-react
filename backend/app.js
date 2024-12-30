@@ -5,13 +5,13 @@ const cors = require('cors');
 const app = express();
 
 //other includes
-const connectDB = require('./database/db_connect');
+const {connectDB} = require('./database/db_connect');
 const transactionRouter = require('./routes/transactions.route');
-
+const userRouter = require('./routes/users.route');
 
 //configurations
 require('dotenv').config();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT;
 
 //middlewares
 app.use(express.json());
@@ -19,10 +19,11 @@ app.use(cors());
 
 //routes
 app.use('/transaction', transactionRouter);
+app.use('/user', userRouter);
 
 const server = () =>{
     connectDB();
-    app.listen(5002, () => {
+    app.listen(5000, () => {
         console.log(`Server is running on port ${PORT}`);
       }).on('error', (err) => {
         if (err.code === 'EADDRINUSE') {

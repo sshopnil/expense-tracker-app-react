@@ -5,11 +5,12 @@ const router = express.Router();
 
 
 //controllers
-const {add_income, get_all_income} = require('../controllers/transactions.controller');
+const {get_all_expenses, add_expense, add_income} = require('../services/transactions.services');
 
 
 //routes
+router.post('/add-expense', add_expense);
 router.post('/add-income', add_income);
-router.get('/', get_all_income);
+router.get('/expense', get_all_expenses);
 
 module.exports = router;
