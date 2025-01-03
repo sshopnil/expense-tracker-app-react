@@ -1,13 +1,16 @@
 import * as React from 'react';
 import './expenseform.css';
 import { TextField, Box, InputLabel, NativeSelect, Typography } from '@mui/material';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
 import PublishIcon from '@mui/icons-material/Publish';
+import axios from 'axios';
+import { URL } from '../../../../GLOBAL_URL';
+import { useAuth } from '../../../../context/auth';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const categories = [
@@ -15,179 +18,199 @@ const categories = [
 ];
 
 export const ExpenseRecord = () => {
+  const auth = useAuth();
   const [value, setValue] = React.useState(dayjs());
-  const handleAddExpense = (e) =>{
+  const [form, setForm] = React.useState({
+    title: '',
+    amount: '',
+    category: '',
+    date: dayjs().toISOString(),
+  });
+  const notifySucess = () => toast.success(`expense of ${form.amount}৳ occurred`, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
+  // Handle form submission
+  const handleAddExpense = async (e) => {
     e.preventDefault();
-    // console.log(value);
-  }
+    console.log(form);
+    if (!form.title || !form.amount || !form.category) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+    const res = await axios.post(`${URL}/transaction/add-expense/${auth.user}`, form);
+    if (res.status == 200) {
+      setForm(
+        {
+          title: '',
+          amount: '',
+          category: '',
+          date: dayjs().toISOString(),
+        }
+      );
+      notifySucess();
+    }
+  };
+
+  // Handle date change 
+  const handleDateChange = (newValue) => {
+    setValue(newValue);
+    setForm({ ...form, date: newValue.toISOString() });
+  };
+
   return (
     <Box className="expense">
-      <Typography sx={{ marginTop: '30px', fontWeight: 'bold', textTransform: 'uppercase' }}>Add Expense</Typography>
+      <Typography sx={{ marginTop: '30px', fontWeight: 'bold', textTransform: 'uppercase' }}>
+        Add Expense
+      </Typography>
+
       <Box
         component="form"
-        sx={{ '& > :not(style)': { m: 1, width: '20vw' }, padding: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
+        sx={{
+          '& > :not(style)': { m: 1, width: '20vw' },
+          padding: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around'
+        }}
         noValidate
         autoComplete="off"
         className='expense-form'
         onSubmit={handleAddExpense}
       >
+        {/* Title Field */}
         <TextField
           id="title"
           label="Title"
           variant='standard'
-          sx={{
-            '.MuiInputBase-root': {
-              input: {
-                color: 'white',
-                fontSize: '16px'
-              },
-            },
-            '.MuiFormLabel-root': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiFormLabel-root::after': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiInputBase-root::after': {
-              borderBottom: '1px solid white !important',
-            },
-            '.MuiInputBase-root::before': {
-              borderBottom: '1px solid white !important',
-            }
-          }}
+          sx={textFieldStyles}
+          value={form.title}
           type='text'
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+          required
         />
+
+        {/* Amount Field */}
         <TextField
           id="amount"
           label="Amount"
           variant='standard'
-          sx={{
-            '.MuiInputBase-root': {
-              input: {
-                color: 'white',
-                fontSize: '16px',
-              }
-            },
-            '.MuiFormLabel-root': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiFormLabel-root::after': {
-              fontSize: '14px'
-            },
-            '.MuiInputBase-root::after': {
-              borderBottom: '1px solid white !important',
-            },
-            '.MuiInputBase-root::before': {
-              borderBottom: '1px solid white !important',
-            }
-
-          }}
+          value={form.amount}
+          sx={textFieldStyles}
           type='number'
+          onChange={(e) => setForm({ ...form, amount: parseFloat(e.target.value) })}
+          required
         />
+
+        {/* Category Dropdown */}
         <NativeSelect
-          defaultValue={30}
-          inputProps={{
-            name: 'age',
-          }}
-          sx={{
-            '.MuiInputBase-root': {
-              borderBottom: '1px solid #e9524a !important',
-            },
-            '.MuiNativeSelect-select': {
-              color: 'white',
-              borderBottom: '2px solid white !important',
-              fontSize: '14px'
-            },
-            '.css-a4seda-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option': {
-              backgroundColor: '#202447 !important',
-              borderColor: '#e9524a',
-              fontSize: '14px'
-            },
-            '.MuiSvgIcon-root': {
-              color: 'white'
-            },
-            backgroundColor: 'transparent !important'
-          }}
+          defaultValue={form.category}
+          onChange={(e) => setForm({ ...form, category: e.target.value })}
+          sx={selectStyles}
+          required
         >
-          <option value={''} disabled selected>Select a Category</option>
-          {
-            categories.map((category, index) => (
-              <option key={index} value={category}>{category}</option>
-            ))
-          }
+          <option value="" disabled hidden selected>Select a Category</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>{category}</option>
+          ))}
         </NativeSelect>
+
+        {/* DateTime Picker */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker
-        label="Incurred On"
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
-        slotProps={{ textField: { variant: "standard", contentEditable:'plaintext-only'} }}
-        sx={{
-          '.MuiInputBase-root': {
-              input: {
-                color: 'white',
-                fontSize: '16px',
-              }
-            },
-            '.MuiFormLabel-root': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiFormLabel-root::after': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiInputBase-root::after': {
-              borderBottom: '1px solid white !important',
-            },
-            '.MuiInputBase-root::before': {
-              borderBottom: '1px solid white !important',
-            },
-            '.Mui-disabled': {
-              color: 'white !important',
-              WebkitTextFillColor:'white'
-            },
-        }}
-        disabled
-        disableOpenPicker
-      />
+          <DateTimePicker
+            id="date"
+            label="Incurred On"
+            value={value}
+            slotProps={{ textField: { variant: "standard" } }}
+            sx={textFieldStyles}
+            disableOpenPicker
+            disabled
+          />
         </LocalizationProvider>
+
+        {/* Description Field */}
         <TextField
           id="outlined-multiline-static"
           label="Description"
           multiline
           rows={2}
           variant='standard'
-          sx={{
-            '.MuiInputBase-root': {
-              textarea: {
-                color: 'white',
-                fontSize: '16px',
-              },
-            },
-            '.MuiFormLabel-root': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiFormLabel-root::after': {
-              color: 'white',
-              fontSize: '14px'
-            },
-            '.MuiInputBase-root::after': {
-              borderBottom: '1px solid white !important',
-            },
-            '.MuiInputBase-root::before': {
-              borderBottom: '1px solid white !important',
-            }
-          }}
+          sx={textFieldStyles}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
-        <Button type='submit' sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<PublishIcon />}>
-        Submit
-      </Button>
+
+        {/* Submit Button */}
+        <Button
+          type='submit'
+          sx={{ backgroundColor: "rgba(45, 158, 219, 0.2)", margin: "0 10px" }}
+          variant="contained"
+          endIcon={<PublishIcon />}
+        >
+          Submit
+        </Button>
       </Box>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Box>
   );
-}
+};
+
+const textFieldStyles = {
+  '.MuiInputBase-root': {
+    input: {
+      color: 'white',
+      fontSize: '16px'
+    },
+    textarea: {
+      color: 'white',
+      fontSize: '16px'
+    }
+  },
+  '.MuiFormLabel-root': {
+    color: 'white',
+    fontSize: '14px'
+  },
+  '.MuiInputBase-root::after': {
+    borderBottom: '1px solid white !important',
+  },
+  '.MuiInputBase-root::before': {
+    borderBottom: '1px solid white !important',
+  },
+  '.Mui-disabled': {
+    color: 'white !important',
+    WebkitTextFillColor: 'white'
+  },
+};
+
+const selectStyles = {
+  '.MuiNativeSelect-select': {
+    color: 'white',
+    fontSize: '14px',
+    borderBottom: '2px solid white !important',
+  },
+  '.MuiNativeSelect-select option': {
+    backgroundColor: '#202447',
+    borderColor: '#e9524a',
+  },
+  '.MuiSvgIcon-root': {
+    color: 'white'
+  },
+  backgroundColor: 'transparent !important'
+};
