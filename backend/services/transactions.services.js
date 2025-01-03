@@ -78,9 +78,9 @@ exports.add_fund = async (req, res, next) => { //adding fund
             res.status(200).json({ msg: "New fund created!" });
         }
         else {
-            // console.log(typeof(fund.totalFund));
+            // console.log(req.body.amount);
 
-            fund.totalFund += req.body.amount;
+            fund.totalFund = parseFloat(fund.totalFund) + req.body.amount;
             fund.transactions.push({ amount: req.body.amount });
             await fund.save();
             res.status(201).json({ msg: "fund updated" });

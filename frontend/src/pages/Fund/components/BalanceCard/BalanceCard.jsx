@@ -25,7 +25,7 @@ export const BalanceCard = ({data}) =>{
                 textAlign: 'center',
                 margin:'20px 0'
             }}
-            >{data?.totalFund} ৳</Typography>
+            >{!data?.totalFund ? '0.00' : data?.totalFund} ৳</Typography>
         </Box>
     )
 }

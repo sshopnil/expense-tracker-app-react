@@ -5,16 +5,33 @@ import Divider from '@mui/material/Divider';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import '../styles/addform.css'
 import { Button } from '@mui/material';
-import dayjs from 'dayjs';
+import axios from 'axios';
+import { URL } from '../../../../GLOBAL_URL';
+import { useAuth } from '../../../../context/auth';
+import { ToastContainer, toast } from 'react-toastify';
 
-
-export const AddForm = () => {
-    const [date, setDate] = React.useState(dayjs());
-  
-
-  const handleSubmit = (e) =>{
+export const AddForm = ({ fetchFund }) => {
+  const auth = useAuth();
+  const [formData, setFormData] = React.useState({ amount: 0 });
+  const notify = () => toast.success(`${formData.amount}৳ Added to the fund 💵`, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(date);
+    if (formData.amount) {
+      const res = await axios.post(`${URL}/transaction/add-fund/${auth.user}`, formData);
+      if (res.data.msg) {
+        notify();
+        await fetchFund();
+      }
+    }
   }
   return (
     <Paper
@@ -28,7 +45,7 @@ export const AddForm = () => {
         '& .MuiSelect-root': {
           borderColor: 'white !important'
         },
-        padding:'15px'
+        padding: '15px'
       }}
       onSubmit={handleSubmit}
     >
@@ -37,11 +54,25 @@ export const AddForm = () => {
         placeholder="Add Balance"
         inputProps={{ 'aria-label': 'Enter a number' }}
         type='number'
+        value={formData.amount}
+        onChange={(e) => setFormData({ ...formData, amount: parseFloat(e.target.value) })}
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <Button type='submit' sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<AddBoxIcon sx={{fontSize:'50px'}}/>}>
+      <Button type='submit' sx={{ backgroundColor: "rgba(45, 158, 219, 0.2)", margin: "0 10px" }} variant="contained" endIcon={<AddBoxIcon sx={{ fontSize: '50px' }} />}>
         Add
       </Button>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Paper>
   );
 }

@@ -14,14 +14,14 @@ export const Fund = () => {
     // console.log(URL);
     useEffect(()=>{
         fetchFund();
-    }, [fund])
+    }, [fund]);
     const fetchFund = async()=>{
         const res = await axios.get(`${URL}/transaction/fund/${auth.user}`);
         setFund(res.data);
     }
     return (
         <div className="container">
-            <AddForm />
+            <AddForm fetch={fetchFund}/>
             <div className="middle">
                 <BalanceCard data={fund}/>
                 <BalanceTrend />
