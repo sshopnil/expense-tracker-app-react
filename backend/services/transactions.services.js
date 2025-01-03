@@ -1,10 +1,10 @@
 
 const ExpenseSchema = require('../schemas/transactions.expense-schema');
 const { FundModel } = require('../schemas/transactions.fund-schema');
-
+const dayjs = require('dayjs');
 
 exports.add_expense = async (req, res, next) => {
-    // #swagger.tags = ['/transactions']
+    // #swagger.tags = ['/transaction']
 
     // const {title, amount, category, description, date} = req.body;
     const {user_id} = req.params;
@@ -35,9 +35,10 @@ exports.add_expense = async (req, res, next) => {
         next();
     }
 }
+//geting all expenses incurred from a user
 
 exports.get_all_expenses = async (req, res, next) => {
-    // #swagger.tags = ['/transactions']
+    // #swagger.tags = ['/transaction']
 
     const {user_id} = req.params;
     try {
@@ -53,11 +54,130 @@ exports.get_all_expenses = async (req, res, next) => {
 }
 
 
+//getting expenses amount incurred today
+exports.get_amount_today=async(req, res, next)=>{
+    // #swagger.tags = ['/transaction']
+    const {user_id} = req.params;
+    try{
+        const startOfDay = dayjs().startOf('day').toDate();
+        const endOfDay = dayjs().endOf('day').toDate();
+        const todays_expenses = await ExpenseSchema.find({
+            userId:user_id,
+            date:{
+                $gte: startOfDay,
+                $lt: endOfDay
+            }
+        });
+        const total = todays_expenses.reduce((sum, expense) => sum + expense.amount, 0);
+        res.status(200).json({total: total, expenses: todays_expenses});
+    }
+    catch(e){
+        console.log("error while getting today's expenses");
+    }
+    finally{
+        next();
+    }
+}
+
+//getting expenses amount incurred this month
+exports.get_amount_month=async(req, res, next)=>{
+    // #swagger.tags = ['/transaction']
+    const {user_id} = req.params;
+
+    try{
+        const startOfMonth = dayjs().startOf('month').toDate();
+        const endOfMonth = dayjs().endOf('month').toDate();
+        // console.log(startOfMonth)
+        // console.log(endOfMonth)
+        const expenses = await ExpenseSchema.find({
+            userId:user_id,
+            date:{
+                $gte: startOfMonth,
+                $lt: endOfMonth
+            }
+        });
+        const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+        res.status(200).json({total: total, expenses: expenses});
+    }
+    catch(e){
+        console.log("error while getting this month's expenses");
+        res.status(400);
+    }
+    finally{
+        next();
+    }
+}
+
+//getting expenses amount incurred this year
+exports.get_amount_year=async(req, res, next)=>{
+    // #swagger.tags = ['/transaction']
+    const {user_id} = req.params;
+
+
+    try{
+        const startOfYear = dayjs().startOf('year').toDate();
+        const endOfYear = dayjs().endOf('year').toDate();
+        // console.log(startOfMonth)
+        // console.log(endOfMonth)
+        const expenses = await ExpenseSchema.find({
+            userId:user_id,
+            date:{
+                $gte: startOfYear,
+                $lt: endOfYear
+            }
+        });
+        const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+        res.status(200).json({total: total, expenses: expenses});
+    }
+    catch(e){
+        console.log("error while getting this year's expenses");
+
+        res.status(400);
+    }
+    finally{
+        next();
+    }
+}
+
+//getting expenses amount incurred in custom range
+exports.get_amount_custom=async(req, res, next)=>{
+    // #swagger.tags = ['/transaction']
+
+    const { user_id, start_date, end_date } = req.params;
+
+    try{
+        const start = dayjs(start_date).startOf('day').toDate();
+        const end = dayjs(end_date).endOf('day').toDate();
+        
+        const expenses = await ExpenseSchema.find({
+            userId: user_id,
+            createdAt: {
+                $gte: start,
+                $lte: end
+            }
+        });
+
+        // console.log(start_date)
+        // console.log(end_date)
+        // console.log(user_id)
+        const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+        res.status(200).json({total: total, expenses: expenses});
+    }
+    catch(e){
+        console.log("error while getting this customs's expenses");
+        res.status(400).json({msg: e});
+    }
+    finally{
+        next();
+    }
+}
+
+
 
 // ==============================================fund services====================================================
 exports.add_fund = async (req, res, next) => { //adding fund
     // const fund = FundModel({ ...req.body });
-    // #swagger.tags = ['/transactions']
+    // #swagger.tags = ['/transaction']
 
     const { user_id } = req.params;
     const fund = await FundModel.findOne({ userId: user_id });
@@ -95,7 +215,7 @@ exports.add_fund = async (req, res, next) => { //adding fund
 }
 
 exports.get_fund = async(req, res, next)=>{
-    // #swagger.tags = ['/transactions']
+    // #swagger.tags = ['/transaction']
 
     const {user_id} = req.params;
     const funds = await FundModel.findOne({userId: user_id});

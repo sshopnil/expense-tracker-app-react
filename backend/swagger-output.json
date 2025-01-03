@@ -13,7 +13,7 @@
     "/add-expense/{user_id}": {
       "post": {
         "tags": [
-          "/transactions"
+          "/transaction"
         ],
         "description": "",
         "parameters": [
@@ -49,7 +49,7 @@
     "/add-fund/{user_id}": {
       "post": {
         "tags": [
-          "/transactions"
+          "/transaction"
         ],
         "description": "",
         "parameters": [
@@ -88,7 +88,7 @@
     "/fund/{user_id}": {
       "get": {
         "tags": [
-          "/transactions"
+          "/transaction"
         ],
         "description": "",
         "parameters": [
@@ -109,7 +109,7 @@
     "/expense/{user_id}": {
       "get": {
         "tags": [
-          "/transactions"
+          "/transaction"
         ],
         "description": "",
         "parameters": [
@@ -123,6 +123,111 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/expense/today/{user_id}": {
+      "get": {
+        "tags": [
+          "/transaction"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/expense/month/{user_id}": {
+      "get": {
+        "tags": [
+          "/transaction"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/expense/year/{user_id}": {
+      "get": {
+        "tags": [
+          "/transaction"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/expense/custom/{start_date}/{end_date}/{user_id}": {
+      "get": {
+        "tags": [
+          "/transaction"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
