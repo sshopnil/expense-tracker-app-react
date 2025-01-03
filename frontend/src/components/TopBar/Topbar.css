@@ -1,0 +1,29 @@
+.top-bar-item-box {
+    box-sizing: border-box;
+    display: flex;
+    width: 20vw;
+    justify-content: space-around;
+}
+
+.top-bar-item {
+    width: 100%;
+    text-align: center;
+    padding: 1vh;
+    height: 6vh;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: white;
+    font-size: 14px !important;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.top-bar-item:hover {
+    transition: background-color 0.3s;
+    background-color: #2d9edb9a;
+    border-radius: 10px;
+    color: #ffffff;
+  
+  }

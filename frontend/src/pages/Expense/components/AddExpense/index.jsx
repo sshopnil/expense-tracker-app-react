@@ -120,7 +120,7 @@ export const ExpenseRecord = () => {
         label="Incurred On"
         value={value}
         onChange={(newValue) => setValue(newValue)}
-        slotProps={{ textField: { variant: "standard" } }}
+        slotProps={{ textField: { variant: "standard", contentEditable:'plaintext-only'} }}
         sx={{
           '.MuiInputBase-root': {
               input: {
@@ -142,10 +142,13 @@ export const ExpenseRecord = () => {
             '.MuiInputBase-root::before': {
               borderBottom: '1px solid white !important',
             },
-            '.MuiSvgIcon-root': {
-              color: 'white'
+            '.Mui-disabled': {
+              color: 'white !important',
+              WebkitTextFillColor:'white'
             },
         }}
+        disabled
+        disableOpenPicker
       />
         </LocalizationProvider>
         <TextField
