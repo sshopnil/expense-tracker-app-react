@@ -87,27 +87,34 @@ export const ExpenseByDate = () => {
                 <Button variant='contained' onClick={onReportSubmit}>Go</Button>
             </div>
             <div className="bottom-report-container">
-                <ReportList filter={filter} />
-                <div className="total-money">
-                    <Typography sx={
-                        {
-                            float: 'left',
-                            padding: '10px',
-                            fontSize: '18px',
-                            fontWeight: 'bolder'
-                        }
-                    }>Total Expense</Typography>
-                    <Typography sx={
-                        {
-                            float: 'right',
-                            padding: '10px',
-                            fontSize: '18px',
-                            fontWeight: 'bolder'
-                        }
-                    }>
-                        {filter && filter?.total} Tk
-                    </Typography>
-                </div>
+                {
+                    filter.length != 0 ?
+                        <>
+                            <ReportList filter={filter} />
+                            <div className="total-money">
+                                <Typography sx={
+                                    {
+                                        float: 'left',
+                                        padding: '10px',
+                                        fontSize: '18px',
+                                        fontWeight: 'bolder'
+                                    }
+                                }>Total Expense</Typography>
+                                <Typography sx={
+                                    {
+                                        float: 'right',
+                                        padding: '10px',
+                                        fontSize: '18px',
+                                        fontWeight: 'bolder'
+                                    }
+                                }>
+                                    {filter && filter?.total} Tk
+                                </Typography>
+                            </div>
+                        </>
+                        :
+                        <Typography>Not filtered yet</Typography>
+                }
             </div>
         </div>
     );
