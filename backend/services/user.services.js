@@ -1,3 +1,4 @@
+
 const {usermodel} = require('../schemas/users.schema');
 
 exports.add_user = async (req, res, next) => {
@@ -17,6 +18,31 @@ exports.add_user = async (req, res, next) => {
     }
     catch (e) {
         console.log("error: while creating user", e);
+    }
+    finally{
+        next();
+    }
+}
+
+exports.login = async (req, res, next)=>{
+    const {email} = req.params;
+    try{
+        const user = await usermodel.findOne({
+            email: email
+        })
+        if (user)
+            return res.status(200).json({
+                msg: 'User found',
+                user: user,
+                status: 'ok'
+            });
+        else
+            {
+                return res.status(404).json({ msg: 'User not found' })
+            }
+    }
+    catch(e){
+        console.log('error finding user');
     }
     finally{
         next();
