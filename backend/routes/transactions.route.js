@@ -3,7 +3,6 @@ const express = require('express');
 
 const router = express.Router();
 
-
 //controllers
 const {get_all_expenses, add_expense, add_fund, get_fund} = require('../services/transactions.services');
 const {arima_forecast} = require('../services/forecasting.services');

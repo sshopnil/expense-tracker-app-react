@@ -4,6 +4,8 @@ const { FundModel } = require('../schemas/transactions.fund-schema');
 
 
 exports.add_expense = async (req, res, next) => {
+    // #swagger.tags = ['/transactions']
+
     // const {title, amount, category, description, date} = req.body;
     const {user_id} = req.params;
     const expense = ExpenseSchema({ userId: user_id, ...req.body });
@@ -35,6 +37,8 @@ exports.add_expense = async (req, res, next) => {
 }
 
 exports.get_all_expenses = async (req, res, next) => {
+    // #swagger.tags = ['/transactions']
+
     const {user_id} = req.params;
     try {
         const all_expenses = await ExpenseSchema.find({userId: user_id});
@@ -53,6 +57,8 @@ exports.get_all_expenses = async (req, res, next) => {
 // ==============================================fund services====================================================
 exports.add_fund = async (req, res, next) => { //adding fund
     // const fund = FundModel({ ...req.body });
+    // #swagger.tags = ['/transactions']
+
     const { user_id } = req.params;
     const fund = await FundModel.findOne({ userId: user_id });
     try {
@@ -89,6 +95,8 @@ exports.add_fund = async (req, res, next) => { //adding fund
 }
 
 exports.get_fund = async(req, res, next)=>{
+    // #swagger.tags = ['/transactions']
+
     const {user_id} = req.params;
     const funds = await FundModel.findOne({userId: user_id});
     res.json(funds);

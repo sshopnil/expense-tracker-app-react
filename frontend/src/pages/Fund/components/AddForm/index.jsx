@@ -5,9 +5,17 @@ import Divider from '@mui/material/Divider';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import '../styles/addform.css'
 import { Button } from '@mui/material';
+import dayjs from 'dayjs';
+
 
 export const AddForm = () => {
+    const [date, setDate] = React.useState(dayjs());
+  
 
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log(date);
+  }
   return (
     <Paper
       component="form"
@@ -22,6 +30,7 @@ export const AddForm = () => {
         },
         padding:'15px'
       }}
+      onSubmit={handleSubmit}
     >
       <InputBase
         sx={{ ml: 1, flex: 1, color: 'white', fontVariantNumeric: 'oldstyle-nums' }}
@@ -30,7 +39,7 @@ export const AddForm = () => {
         type='number'
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <Button sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<AddBoxIcon sx={{fontSize:'50px'}}/>}>
+      <Button type='submit' sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<AddBoxIcon sx={{fontSize:'50px'}}/>}>
         Add
       </Button>
     </Paper>

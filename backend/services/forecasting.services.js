@@ -3,6 +3,8 @@ const ExpenseSchema = require('../schemas/transactions.expense-schema');
 
 
 exports.arima_forecast = async (req, res, next)=> {
+    // #swagger.tags = ['/forecast']
+
     const {user_id} = req.params;
     const expenses = await ExpenseSchema.find({userId: user_id});
     try {

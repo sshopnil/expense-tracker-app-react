@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import '../styles/BalanceCard.css';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
-export const BalanceCard = () =>{
+export const BalanceCard = ({data}) =>{
     return(
         <Box className = 'card'>
             <Typography 
@@ -25,7 +25,7 @@ export const BalanceCard = () =>{
                 textAlign: 'center',
                 margin:'20px 0'
             }}
-            >0.00 ৳</Typography>
+            >{data?.totalFund} ৳</Typography>
         </Box>
     )
 }

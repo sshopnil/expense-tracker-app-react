@@ -16,7 +16,10 @@ const categories = [
 
 export const ExpenseRecord = () => {
   const [value, setValue] = React.useState(dayjs());
-
+  const handleAddExpense = (e) =>{
+    e.preventDefault();
+    // console.log(value);
+  }
   return (
     <Box className="expense">
       <Typography sx={{ marginTop: '30px', fontWeight: 'bold', textTransform: 'uppercase' }}>Add Expense</Typography>
@@ -26,6 +29,7 @@ export const ExpenseRecord = () => {
         noValidate
         autoComplete="off"
         className='expense-form'
+        onSubmit={handleAddExpense}
       >
         <TextField
           id="title"
@@ -180,7 +184,7 @@ export const ExpenseRecord = () => {
             }
           }}
         />
-        <Button sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<PublishIcon />}>
+        <Button type='submit' sx={{backgroundColor: "rgba(45, 158, 219, 0.2)", margin:"0 10px"}} variant="contained" endIcon={<PublishIcon />}>
         Submit
       </Button>
       </Box>

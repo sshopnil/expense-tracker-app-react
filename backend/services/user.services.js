@@ -2,6 +2,7 @@
 const {usermodel} = require('../schemas/users.schema');
 
 exports.add_user = async (req, res, next) => {
+    // #swagger.tags = ['/user']
     try {
         const user = usermodel.find({
             $or: [{ username: req.body.username, email: req.body.email }]
@@ -25,6 +26,7 @@ exports.add_user = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next)=>{
+    // #swagger.tags = ['/user']
     const {email} = req.params;
     try{
         const user = await usermodel.findOne({
