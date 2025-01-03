@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './expenseform.css';
-import { TextField, Box, InputLabel, NativeSelect, Typography } from '@mui/material';
+import { TextField, Box, NativeSelect, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -11,13 +11,13 @@ import axios from 'axios';
 import { URL } from '../../../../GLOBAL_URL';
 import { useAuth } from '../../../../context/auth';
 import { ToastContainer, toast } from 'react-toastify';
-
+import PropTypes from 'prop-types';
 
 const categories = [
   'Food and Drinks', 'Shopping', 'Housing', 'Transportation', 'Vehicle', 'Entertainment', 'Electronics', 'Financial Expenses', 'Investments'
 ];
 
-export const ExpenseRecord = () => {
+export const ExpenseRecord = ({fetchData}) => {
   const auth = useAuth();
   const [value, setValue] = React.useState(dayjs());
   const [form, setForm] = React.useState({
@@ -47,6 +47,7 @@ export const ExpenseRecord = () => {
     }
     const res = await axios.post(`${URL}/transaction/add-expense/${auth.user}`, form);
     if (res.status == 200) {
+      await fetchData();
       setForm(
         {
           title: '',
@@ -59,11 +60,11 @@ export const ExpenseRecord = () => {
     }
   };
 
-  // Handle date change 
-  const handleDateChange = (newValue) => {
-    setValue(newValue);
-    setForm({ ...form, date: newValue.toISOString() });
-  };
+  // // Handle date change 
+  // const handleDateChange = (newValue) => {
+  //   setValue(newValue);
+  //   setForm({ ...form, date: newValue.toISOString() });
+  // };
 
   return (
     <Box className="expense">
@@ -214,3 +215,7 @@ const selectStyles = {
   },
   backgroundColor: 'transparent !important'
 };
+
+ExpenseRecord.propTypes={
+  fetchData: PropTypes.func.isRequired
+}
