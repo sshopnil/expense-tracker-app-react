@@ -15,7 +15,7 @@ export const Expense = () => {
 
     useEffect(() => {
         fetchAllData();
-    }, [thisday, thisMonth, thisYear]);
+    }, []);
 
     const fetchAllData = async ()=>{
         const dayRes = await axios.get(`${URL}/transaction/expense/today/${auth.user}`);
@@ -38,7 +38,7 @@ export const Expense = () => {
             <ExpenseTrack day={thisday} month={thisMonth} year={thisYear}/>
             <div className="last-section">
                 <ExpenseRecord fetchData = {fetchAllData}/>
-                <RecentExpenses />
+                <RecentExpenses day={thisday}/>
             </div>
         </div>
     )

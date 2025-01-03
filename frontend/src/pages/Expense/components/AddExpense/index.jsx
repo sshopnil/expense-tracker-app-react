@@ -207,7 +207,7 @@ const selectStyles = {
     borderBottom: '2px solid white !important',
   },
   '.MuiNativeSelect-select option': {
-    backgroundColor: '#202447',
+    backgroundColor: '#202447 !important',
     borderColor: '#e9524a',
   },
   '.MuiSvgIcon-root': {

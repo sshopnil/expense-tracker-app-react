@@ -67,7 +67,7 @@ exports.get_amount_today=async(req, res, next)=>{
                 $gte: startOfDay,
                 $lt: endOfDay
             }
-        });
+        }).sort({date: -1});
         const total = todays_expenses.reduce((sum, expense) => sum + expense.amount, 0);
         res.status(200).json({total: total, expenses: todays_expenses});
     }

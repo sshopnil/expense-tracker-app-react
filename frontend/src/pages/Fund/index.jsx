@@ -14,7 +14,7 @@ export const Fund = () => {
     // console.log(URL);
     useEffect(()=>{
         fetchFund();
-    }, [fund]);
+    }, []);
     const fetchFund = async()=>{
         const res = await axios.get(`${URL}/transaction/fund/${auth.user}`);
         setFund(res.data);
