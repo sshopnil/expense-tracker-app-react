@@ -49,3 +49,8 @@
   flex-grow: 1;
   padding: 40px;
 }
+.bottom-info{
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: auto;
+}

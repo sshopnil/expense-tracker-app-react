@@ -25,8 +25,9 @@ const mainStyle = ()=>{
 
 function App() {
     const auth = useAuth();
+    // console.log(auth?.user);
+
     return (
-        <AuthProvider>
             <Box flexGrow={1} className="container">
                 <Grid container sx={{ height: "100vh", width: "100vw", boxSizing: "border-box" }} >
                     <Grid size={auth?.user ? 2: 12}>
@@ -59,7 +60,6 @@ function App() {
                     </Grid>
                 </Grid>
             </Box>
-        </AuthProvider>
     )
 }
 

@@ -22,22 +22,28 @@ export const Register = () => {
                         '.MuiInputBase-root': {
                             input: {
                                 color: 'white',
-                                fontSize: '16px'
+                                fontSize: '16px',
+                                borderRadius: '5px',
+                                padding:'5px',
+                                marginTop: '10px'
                             },
                         },
                         '.MuiFormLabel-root': {
                             color: 'white',
-                            fontSize: '14px'
+                            fontSize: '24px',
                         },
                         '.MuiFormLabel-root::after': {
                             color: 'white',
-                            fontSize: '14px'
+                            fontSize: '20px',
                         },
                         '.MuiInputBase-root::after': {
                             borderBottom: '1px solid white !important',
+                            borderRadius: '5px'
+
                         },
                         '.MuiInputBase-root::before': {
                             borderBottom: '1px solid white !important',
+                            borderRadius: '5px'
                         }
                     }}
                     type='email'
@@ -50,22 +56,28 @@ export const Register = () => {
                         '.MuiInputBase-root': {
                             input: {
                                 color: 'white',
-                                fontSize: '16px'
+                                fontSize: '16px',
+                                borderRadius: '5px',
+                                padding:'5px',
+                                marginTop: '10px'
                             },
                         },
                         '.MuiFormLabel-root': {
                             color: 'white',
-                            fontSize: '14px'
+                            fontSize: '24px',
                         },
                         '.MuiFormLabel-root::after': {
                             color: 'white',
-                            fontSize: '14px'
+                            fontSize: '20px',
                         },
                         '.MuiInputBase-root::after': {
                             borderBottom: '1px solid white !important',
+                            borderRadius: '5px'
+
                         },
                         '.MuiInputBase-root::before': {
                             borderBottom: '1px solid white !important',
+                            borderRadius: '5px'
                         }
                     }}
                     type='text'
