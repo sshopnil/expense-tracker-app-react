@@ -16,12 +16,12 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
 
-export default function RecentExpenseList({ day }) {
-  // console.log(day);
+export default function ReportList({ filter }) {
+  console.log(filter);
   return (
     <div>
       {
-        day?.expenses?.map((item, key) => {
+        filter?.groupedByDate?.map((item, key) => {
 
           return (<>
             <Accordion key={key} sx={{
@@ -36,32 +36,36 @@ export default function RecentExpenseList({ day }) {
                 aria-controls="panel3-content"
                 id="panel3-header"
               >
-                <Typography component="span" sx={{fontWeight:'bolder', fontSize:18}}>Expense at {dayjs(item?.date).format('HH:mm')}</Typography>
-                <Typography component="span" sx={{marginLeft:'auto', fontWeight:'bolder', fontSize:18}}>{item?.amount} Tk</Typography>
+                <Typography component="span" sx={{ fontWeight: 'bolder', fontSize: 18 }}>Total Expense Of {item?.date}</Typography>
+                <Typography component="span" sx={{ marginLeft: 'auto', fontWeight: 'bolder', fontSize: 18 }}>{item?.total} Tk</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <TableContainer>
                   <Table sx={{ minWidth: 250, color: 'white' }} size="small" aria-label="a dense table">
                     <TableHead>
                       <TableRow >
-                        <TableCell sx={{ fontWeight: '900', color: 'white'}}>Category</TableCell>
+                        <TableCell sx={{ fontWeight: '900', color: 'white' }}>Category</TableCell>
                         <TableCell align="right" sx={{ fontWeight: '900', color: 'white' }}>Item Name</TableCell>
-                        <TableCell align="right" sx={{ fontWeight: '900', color: 'white'}}>Cost</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '900', color: 'white'}} colSpan={2}>Update</TableCell>
+                        <TableCell align="right" sx={{ fontWeight: '900', color: 'white' }}>Cost</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: '900', color: 'white' }} colSpan={2}>Update</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                          <TableCell sx={{color: 'white'}}>
-                            {item?.category}
-                          </TableCell>
-                          <TableCell align="right" sx={{color: 'white'}}>{item?.title}</TableCell>
-                          <TableCell align="right" sx={{color: 'white'}}>{item?.amount}</TableCell>
-                          <TableCell align="center" colSpan={2} sx={{display:'flex', justifyContent:'space-evenly'}}>
-                            <Button variant='text' sx={{color: '#ffffff', fontWeight: 'bolder'}}>Edit</Button>
-                            <Button variant='text' sx={{color:'#fe0032', fontWeight: 'bolder'}}>Delete</Button>
-                          </TableCell>
-                        </TableRow>
+                      {item?.expenses?.map((it, key) => {
+                        return (<>
+                          <TableRow key={key}>
+                            <TableCell sx={{ color: 'white' }}>
+                              {it?.category}
+                            </TableCell>
+                            <TableCell align="right" sx={{ color: 'white' }}>{it?.title}</TableCell>
+                            <TableCell align="right" sx={{ color: 'white' }}>{it?.amount}</TableCell>
+                            <TableCell align="center" colSpan={2} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                              <Button variant='text' sx={{ color: '#ffffff', fontWeight: 'bolder' }}>Edit</Button>
+                              <Button variant='text' sx={{ color: '#fe0032', fontWeight: 'bolder' }}>Delete</Button>
+                            </TableCell>
+                          </TableRow>
+                        </>)
+                      })}
                     </TableBody>
                   </Table>
                 </TableContainer>
@@ -74,6 +78,6 @@ export default function RecentExpenseList({ day }) {
   );
 }
 
-RecentExpenseList.propTypes = {
-  day: PropTypes.object
+ReportList.propTypes = {
+  filter: PropTypes.object
 }

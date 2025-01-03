@@ -127,6 +127,7 @@ exports.get_amount_year=async(req, res, next)=>{
             }
         });
         const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+        
         res.status(200).json({total: total, expenses: expenses});
     }
     catch(e){
@@ -140,37 +141,60 @@ exports.get_amount_year=async(req, res, next)=>{
 }
 
 //getting expenses amount incurred in custom range
-exports.get_amount_custom=async(req, res, next)=>{
+exports.get_amount_custom = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
 
     const { user_id, start_date, end_date } = req.params;
 
-    try{
+    try {
         const start = dayjs(start_date).startOf('day').toDate();
         const end = dayjs(end_date).endOf('day').toDate();
         
         const expenses = await ExpenseSchema.find({
             userId: user_id,
-            createdAt: {
+            date: {
                 $gte: start,
                 $lte: end
             }
         });
 
-        // console.log(start_date)
-        // console.log(end_date)
-        // console.log(user_id)
-        const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-        res.status(200).json({total: total, expenses: expenses});
-    }
-    catch(e){
-        console.log("error while getting this customs's expenses");
-        res.status(400).json({msg: e});
-    }
-    finally{
+        let totalAmount = 0;
+        const dailyTotals = {};
+
+        expenses.forEach(expense => {
+            const date = dayjs(expense.date).format('DD-MM-YYYY');
+            
+            totalAmount += expense.amount;
+
+            if (!dailyTotals[date]) {
+                dailyTotals[date] = {
+                    total: 0,
+                    expenses: []
+                };
+            }
+            dailyTotals[date].total += expense.amount;
+            dailyTotals[date].expenses.push(expense);
+        });
+
+        const groupedByDate = Object.entries(dailyTotals).map(([date, data]) => ({
+            date,
+            total: data.total,
+            expenses: data.expenses
+        }));
+
+        res.status(200).json({
+            total: totalAmount,
+            expenses,
+            groupedByDate
+        });
+    } catch (e) {
+        console.error("Error fetching expenses:", e);
+        res.status(400).json({ msg: 'Error fetching expenses' });
+    } finally {
         next();
     }
-}
+};
+
 
 
 

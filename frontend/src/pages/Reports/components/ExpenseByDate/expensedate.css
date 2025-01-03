@@ -1,0 +1,32 @@
+.container-bydate{
+    height: 70vh;
+    width: 35vw;
+    box-sizing: content-box;
+    background: #30355b;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    margin-right: auto;
+    overflow-y: scroll;
+    padding: 20px;
+}
+.mid-components-bydate{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottom-report-container{
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+.total-money{
+    height: 6vh;
+    background-color: #202447;
+    width: 100%;
+    margin-top: auto;
+    bottom: 0;
+    position: sticky
+}

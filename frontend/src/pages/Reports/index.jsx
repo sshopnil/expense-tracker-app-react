@@ -1,6 +1,23 @@
 import { Typography } from "@mui/material"
-export const Reports = () =>{
-    return(
-        <Typography>Reports</Typography>
+import { ExpenseByDate } from "./components/ExpenseByDate"
+import { ExpensePieChart } from "./components/ExpensePieChart"
+export const Reports = () => {
+    return (
+        <div
+            style={{
+                display: 'grid',
+                marginTop:'20px'
+            }}
+        >
+            <div 
+            style={{
+                display:'flex',
+                justifyContent:'space-around'
+            }}
+            >
+                <ExpenseByDate />
+                <ExpensePieChart />
+            </div>
+        </div>
     )
 }
