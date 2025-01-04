@@ -21,10 +21,10 @@ export default function RecentExpenseList({ day }) {
   return (
     <div>
       {
-        day?.expenses?.map((item, key) => {
+        day?.expenses?.map((item, k) => {
 
           return (<>
-            <Accordion key={key} sx={{
+            <Accordion key={k} sx={{
               backgroundColor: '#2e74a8',
               borderRadius: '10px',
               border: '1px solid rgba(255, 255, 255, 0.10)',

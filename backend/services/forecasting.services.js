@@ -40,9 +40,9 @@ exports.arima_forecast = async (req, res, next) => {
     }));
 
     res.json(predicted_date_amount); 
-  } catch (error) {
-    console.error('Error during ARIMA prediction:', error);
-    res.status(500).json({ message: 'Error during ARIMA prediction' });
+  } catch (e) {
+    console.error('Error during ARIMA prediction:', e);
+    res.status(500).json({ msg: 'Error during ARIMA prediction' });
   } finally {
     next();
   }

@@ -6,6 +6,10 @@ import axios from "axios"
 import { useAuth } from "../../context/auth"
 import { URL } from "../../GLOBAL_URL"
 import { useState, useEffect} from "react"
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+
 export const Expense = () => {
     const auth = useAuth();
     const [thisday, setThisDay] = useState();
@@ -25,6 +29,22 @@ export const Expense = () => {
         setThisDay(dayRes.data);
         setThisMonth(monthRes.data);
         setThisYear(yearRes.data);
+    }
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (thisday && thisMonth && thisYear) {
+            setLoading(false);
+        }
+    }, [thisday, thisMonth, thisYear]);
+
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                <CircularProgress />
+            </Box>
+        );
     }
 
 
