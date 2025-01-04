@@ -1,6 +1,7 @@
 
 const ExpenseSchema = require('../schemas/transactions.expense-schema');
 const { FundModel } = require('../schemas/transactions.fund-schema');
+const mongoose = require('mongoose');
 const dayjs = require('dayjs');
 
 exports.add_expense = async (req, res, next) => {
@@ -196,7 +197,7 @@ exports.get_amount_custom = async (req, res, next) => {
 };
 
 
-//getting expenses amount incurred in custom range
+//getting expenses amount incurred in category wise
 exports.get_category_amount = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
 
@@ -214,7 +215,6 @@ exports.get_category_amount = async (req, res, next) => {
             }
         });
 
-        let totalAmount = 0;
         const categoryTotal = {};
         // const normalize = (v, v2) => Number.parseFloat(((v * v2) / 100).toFixed(2));
 
@@ -242,6 +242,41 @@ exports.get_category_amount = async (req, res, next) => {
         next();
     }
 };
+
+exports.edit_expense = async (req, res, next) => {
+    // #swagger.tags = ['/transaction']
+
+    const { id } = req.params;
+    const { title, amount, category } = req.body;
+
+    try {
+        const old_expense = await ExpenseSchema.findById(id);
+
+        // console.log(old_expense);
+        const new_amount = old_expense.amount - amount;
+
+        const availableFund = await FundModel.findOne({ userId: old_expense.userId });
+        const remaining_fund = availableFund.totalFund + new_amount;
+        availableFund.totalFund = remaining_fund;
+
+
+        const update_expense = await ExpenseSchema.findByIdAndUpdate(
+            id,
+            { title, amount, category },
+            { new: true } 
+        );
+
+        if (!update_expense) {
+            return res.status(404).json({ message: 'Expense not found' });
+        }
+        availableFund.save();
+        res.status(200).json(update_expense);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating expense', error: error.message });
+    }
+}
+
 
 
 

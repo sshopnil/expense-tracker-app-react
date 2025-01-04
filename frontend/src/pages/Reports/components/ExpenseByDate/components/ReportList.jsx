@@ -134,7 +134,7 @@ export default function ReportList({ filter, handleEdit, setForm, form }) {
                               <Button
                                 variant='text'
                                 sx={{ color: '#ffffff', fontWeight: 'bolder' }}
-                                onClick={() => handleEdit(it?._id)}
+                                onClick={() => {handleEdit(it?._id), setActiveRow(null)}}
                               >
                                 Save
                               </Button>

@@ -42,9 +42,22 @@ export const ExpenseByDate = () => {
         }
     };
 
-    const handleEdit = (id)=>{
-        console.log(id);
-        console.log(form);
+    const handleEdit = async(id)=>{
+        // console.log(form);
+        try {
+            await axios.put(`${URL}/transaction/expense/edit/${id}`, form);
+            const res = await toast.promise(
+                axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
+                {
+                  pending: 'Pending to load data...',
+                  success: `Expenses are loaded`,
+                  error: 'Failed to load expenses 🤯'
+                }
+            );
+            setFilter(res.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
 
     return (
