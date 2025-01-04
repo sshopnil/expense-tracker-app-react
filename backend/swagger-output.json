@@ -232,6 +232,42 @@
         }
       }
     },
+    "/expense/category/{start_date}/{end_date}/{user_id}": {
+      "get": {
+        "tags": [
+          "/transaction"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/forecast/{user_id}": {
       "get": {
         "tags": [

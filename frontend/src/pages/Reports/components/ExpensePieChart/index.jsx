@@ -17,13 +17,13 @@ export const ExpensePieChart = ()=>{
     const [end, setEnd] = useState(null);
 
     const FetchChartData = async()=>{
+        console.log(start);
+        console.log(end);
         if (start && end) {
             try {
-                // const res = await axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`);
-                // // setChartData(res.data);
-                // res?.data?.forEach(item=>{
+                const res = await axios.get(`${URL}/transaction/expense/category/${start.toString()}/${end.toString()}/${auth.user}`);
+                setChartData(res.data.chartData);
 
-                // })
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -107,9 +107,9 @@ export const ExpensePieChart = ()=>{
                             }}
                             label="End Date" />
                 </LocalizationProvider>
-                <Button variant='contained'>Go</Button>
+                <Button variant='contained' onClick={FetchChartData}>Go</Button>
             </div>
-            <PieAnimation chartData= {chartData}/>
+            {chartData&&<PieAnimation chartData= {chartData}/>}
         </div>
     )
 }

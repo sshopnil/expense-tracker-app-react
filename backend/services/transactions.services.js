@@ -7,9 +7,9 @@ exports.add_expense = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
 
     // const {title, amount, category, description, date} = req.body;
-    const {user_id} = req.params;
+    const { user_id } = req.params;
     const expense = ExpenseSchema({ userId: user_id, ...req.body });
-    const availableFund = await FundModel.findOne({userId: user_id});
+    const availableFund = await FundModel.findOne({ userId: user_id });
     // console.log(expense);
     try {
         const remaining_fund = availableFund.totalFund - req.body.amount;
@@ -19,7 +19,7 @@ exports.add_expense = async (req, res, next) => {
         if (req.body.amount <= 0 || !req.body.amount === 'number') {
             return res.status(400).json({ msg: "Amount must be a positive number" });
         }
-        else if (remaining_fund < 0){
+        else if (remaining_fund < 0) {
             return res.status(400).json({ msg: "Insufficient Fund Available" });
         }
         availableFund.totalFund = remaining_fund;
@@ -40,9 +40,9 @@ exports.add_expense = async (req, res, next) => {
 exports.get_all_expenses = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
 
-    const {user_id} = req.params;
+    const { user_id } = req.params;
     try {
-        const all_expenses = await ExpenseSchema.find({userId: user_id});
+        const all_expenses = await ExpenseSchema.find({ userId: user_id });
         res.json(all_expenses);
     }
     catch (e) {
@@ -55,87 +55,87 @@ exports.get_all_expenses = async (req, res, next) => {
 
 
 //getting expenses amount incurred today
-exports.get_amount_today=async(req, res, next)=>{
+exports.get_amount_today = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
-    const {user_id} = req.params;
-    try{
+    const { user_id } = req.params;
+    try {
         const startOfDay = dayjs().startOf('day').toDate();
         const endOfDay = dayjs().endOf('day').toDate();
         const todays_expenses = await ExpenseSchema.find({
-            userId:user_id,
-            date:{
+            userId: user_id,
+            date: {
                 $gte: startOfDay,
                 $lt: endOfDay
             }
-        }).sort({date: -1});
+        }).sort({ date: -1 });
         const total = todays_expenses.reduce((sum, expense) => sum + expense.amount, 0);
-        res.status(200).json({total: total, expenses: todays_expenses});
+        res.status(200).json({ total: total, expenses: todays_expenses });
     }
-    catch(e){
+    catch (e) {
         console.log("error while getting today's expenses");
     }
-    finally{
+    finally {
         next();
     }
 }
 
 //getting expenses amount incurred this month
-exports.get_amount_month=async(req, res, next)=>{
+exports.get_amount_month = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
-    const {user_id} = req.params;
+    const { user_id } = req.params;
 
-    try{
+    try {
         const startOfMonth = dayjs().startOf('month').toDate();
         const endOfMonth = dayjs().endOf('month').toDate();
         // console.log(startOfMonth)
         // console.log(endOfMonth)
         const expenses = await ExpenseSchema.find({
-            userId:user_id,
-            date:{
+            userId: user_id,
+            date: {
                 $gte: startOfMonth,
                 $lt: endOfMonth
             }
         });
         const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-        res.status(200).json({total: total, expenses: expenses});
+        res.status(200).json({ total: total, expenses: expenses });
     }
-    catch(e){
+    catch (e) {
         console.log("error while getting this month's expenses");
         res.status(400);
     }
-    finally{
+    finally {
         next();
     }
 }
 
 //getting expenses amount incurred this year
-exports.get_amount_year=async(req, res, next)=>{
+exports.get_amount_year = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
-    const {user_id} = req.params;
+    const { user_id } = req.params;
 
 
-    try{
+    try {
         const startOfYear = dayjs().startOf('year').toDate();
         const endOfYear = dayjs().endOf('year').toDate();
         // console.log(startOfMonth)
         // console.log(endOfMonth)
         const expenses = await ExpenseSchema.find({
-            userId:user_id,
-            date:{
+            userId: user_id,
+            date: {
                 $gte: startOfYear,
                 $lt: endOfYear
             }
         });
         const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-        
-        res.status(200).json({total: total, expenses: expenses});
+
+        res.status(200).json({ total: total, expenses: expenses });
     }
-    catch(e){
+    catch (e) {
         console.log("error while getting this year's expenses");
 
         res.status(400);
     }
-    finally{
+    finally {
         next();
     }
 }
@@ -149,7 +149,7 @@ exports.get_amount_custom = async (req, res, next) => {
     try {
         const start = dayjs(start_date).startOf('day').toDate();
         const end = dayjs(end_date).endOf('day').toDate();
-        
+
         const expenses = await ExpenseSchema.find({
             userId: user_id,
             date: {
@@ -163,7 +163,7 @@ exports.get_amount_custom = async (req, res, next) => {
 
         expenses.forEach(expense => {
             const date = dayjs(expense.date).format('DD-MM-YYYY');
-            
+
             totalAmount += expense.amount;
 
             if (!dailyTotals[date]) {
@@ -205,7 +205,7 @@ exports.get_category_amount = async (req, res, next) => {
     try {
         const start = dayjs(start_date).startOf('day').toDate();
         const end = dayjs(end_date).endOf('day').toDate();
-        
+
         const expenses = await ExpenseSchema.find({
             userId: user_id,
             date: {
@@ -216,7 +216,9 @@ exports.get_category_amount = async (req, res, next) => {
 
         let totalAmount = 0;
         const categoryTotal = {};
-// console.log(expenses);
+        // const normalize = (v, v2) => Number.parseFloat(((v * v2) / 100).toFixed(2));
+
+        // console.log(expenses);
         expenses.forEach(expense => {
 
             if (!categoryTotal[expense.category]) {
@@ -227,7 +229,12 @@ exports.get_category_amount = async (req, res, next) => {
             categoryTotal[expense.category].total += expense.amount;
         });
 
-        res.status(200).json({categoryTotal});
+        const chartData = Object.entries(categoryTotal).map(([key, value]) => ({
+            label: key,
+            value: value.total
+        }));
+
+        res.status(200).json({ chartData });
     } catch (e) {
         console.error("Error fetching expenses:", e);
         res.status(400).json({ msg: 'Error fetching expenses' });
@@ -279,11 +286,11 @@ exports.add_fund = async (req, res, next) => { //adding fund
     }
 }
 
-exports.get_fund = async(req, res, next)=>{
+exports.get_fund = async (req, res, next) => {
     // #swagger.tags = ['/transaction']
 
-    const {user_id} = req.params;
-    const funds = await FundModel.findOne({userId: user_id});
+    const { user_id } = req.params;
+    const funds = await FundModel.findOne({ userId: user_id });
     res.json(funds);
 }
 

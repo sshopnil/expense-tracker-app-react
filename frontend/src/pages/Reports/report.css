@@ -1,0 +1,9 @@
+.reportBox{
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+}
