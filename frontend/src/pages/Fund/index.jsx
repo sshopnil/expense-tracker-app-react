@@ -13,25 +13,36 @@ import Box from '@mui/material/Box';
 export const Fund = () => {
     const [fund, setFund] = useState(null);
     const [forecast, setForecast] = useState(null);
+    const [isAvailable, setAvailable] = useState(false);
     const auth = useAuth();
-    // console.log(URL);
+
+    // console.log(fund);
     useEffect(() => {
         fetchFund();
     }, []);
     const fetchFund = async () => {
-        const res1 = await axios.get(`${URL}/transaction/fund/${auth.user}`);
-        const res2 = await axios.get(`${URL}/transaction/forecast/${auth.user}`);
-        setFund(res1.data);
-        setForecast(res2.data);
+        try {
+            const res1 = await axios.get(`${URL}/transaction/fund/${auth.user}`);
+            const res2 = await axios.get(`${URL}/transaction/forecast/${auth.user}`);
+            setFund(res1.data);
+            setForecast(res2.data);
+
+            if(res2.status == 200){
+                setAvailable(true);
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (fund && forecast) {
+        if (fund) {
             setLoading(false);
         }
-    }, [fund, forecast]);
+    }, [fund]);
 
     if (loading) {
         return (
@@ -47,7 +58,7 @@ export const Fund = () => {
                 <BalanceCard data={fund} />
                 {/* <BalanceTrend /> */}
             </div>
-            <ForecastData data={forecast} />
+            <ForecastData data={forecast} isAvailable={isAvailable}/>
         </div>
     )
 }

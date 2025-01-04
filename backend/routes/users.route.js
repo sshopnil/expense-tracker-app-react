@@ -5,6 +5,6 @@ const router = express.Router();
 const {add_user, login} = require('../services/user.services');
 
 router.post('/add-user', add_user);
-router.post('/login/:email', login);
+router.get('/login/:email', login);
 
 module.exports = router;

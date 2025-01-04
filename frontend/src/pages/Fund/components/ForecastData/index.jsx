@@ -5,9 +5,8 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import ForecastChart from './components/ForecastChart';
 import PropTypes from 'prop-types';
 
-export const ForecastData = ({data}) => {
+export const ForecastData = ({data, isAvailable}) => {
     // console.log(data);
-    const modifiedData = data?.map((item)=> {return {date: item.date, value: parseFloat(item.amount)}})
     return (
         <div className="history-card">
             <Typography
@@ -22,7 +21,7 @@ export const ForecastData = ({data}) => {
                 Forecasted Expenses
             </Typography>
             <div className="log-table">
-                <ForecastChart data={modifiedData}/>
+                {isAvailable ? <ForecastChart data={data}/>: <Typography>Add at least 10 expenses to view forecasted data</Typography>}
             </div>
         </div>
     )

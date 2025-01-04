@@ -29,10 +29,11 @@ const chartSetting = {
 };
 
 export default function ForecastChart({ data }) {
+  const modifiedData = data?.map((item)=> {return {date: item.date, value: parseFloat(item.amount)}})
 
   return (
     <BarChart
-      dataset={data}
+      dataset={modifiedData}
       xAxis={[
         { scaleType: 'band', dataKey: 'date'},
       ]}

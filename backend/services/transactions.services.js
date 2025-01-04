@@ -363,6 +363,17 @@ exports.get_fund = async (req, res, next) => {
 
     const { user_id } = req.params;
     const funds = await FundModel.findOne({ userId: user_id });
+    if (!funds) {
+        // If no funds exist for the user, initialize the fund object
+        const newFund = new FundModel({
+            userId: user_id,
+            totalFund: 0,
+            transactions: []
+        });
+        await newFund.save();
+        funds = newFund;
+    }
+
     res.json(funds);
 }
 

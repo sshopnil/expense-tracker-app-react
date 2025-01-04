@@ -3,17 +3,25 @@ import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 import { useAuth } from '../../../context/auth';
 import { useNavigate } from 'react-router-dom';
+import { URL } from '../../../GLOBAL_URL';
+import axios from 'axios';
+
+
 export const Login = () => {
     const [user, setUser] = useState(null);
     const [form, setForm] = useState({email: ''});
     const auth = useAuth();
     const navigate = useNavigate();
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async(e)=>{
         e.preventDefault();
         if(form.email){
-            auth.login(1);
-            navigate('/', {replace: true});
+
+            const res = await axios.get(`${URL}/user/login/${form.email}`);
+            if(res.status == 200){
+                auth.login(res.data.user.user_id);
+                navigate('/', {replace: true});
+            }
             // console.log(auth.user);
         }
     }

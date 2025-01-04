@@ -30,7 +30,7 @@ export const ExpenseRecord = ({fetchData}) => {
   // Handle form submission
   const handleAddExpense = async (e) => {
     e.preventDefault();
-    console.log(form);
+    // console.log(form);
     if (!form.title || !form.amount || !form.category) {
       alert("Please fill out all required fields.");
       return;

@@ -30,7 +30,6 @@ const handleLogout =(e) =>{
 
       <div className="bottom-info">
       <hr className='line' />
-        <Typography sx={{textAlign: 'center',fontSize: '20px', color: 'white', marginBottom:'30px'}}>Logged in as user1!</Typography>
         <button onClick={handleLogout} style={{ width: '100%', backgroundColor: '#e9524a', color: 'white' }}>Logout</button>
       </div>
     </div>
