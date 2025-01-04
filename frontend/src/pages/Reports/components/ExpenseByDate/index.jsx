@@ -60,6 +60,23 @@ export const ExpenseByDate = () => {
         }
     }
 
+    const handleDelete = async(id)=>{
+        try {
+            await axios.delete(`${URL}/transaction/expense/remove/${id}`);
+            const res = await toast.promise(
+                axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
+                {
+                  pending: 'Pending to load data...',
+                  success: `Expenses are loaded`,
+                  error: 'Failed to load expenses 🤯'
+                }
+            );
+            setFilter(res.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
     return (
         <div className="container-bydate">
             <Typography sx={{ p: 2, textAlign: 'center', fontWeight: 'bolder' }}>
@@ -124,7 +141,7 @@ export const ExpenseByDate = () => {
                 {
                     filter.length != 0 ?
                         <>
-                            <ReportList filter={filter} handleEdit={handleEdit} setForm={setForm} form={form}/>
+                            <ReportList filter={filter} handleEdit={handleEdit} setForm={setForm} form={form} handleDelete={handleDelete}/>
                             <div className="total-money">
                                 <Typography sx={
                                     {

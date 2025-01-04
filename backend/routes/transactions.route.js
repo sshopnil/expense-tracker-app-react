@@ -14,7 +14,8 @@ const {
     get_amount_year,
     get_amount_custom,
     get_category_amount,
-    edit_expense
+    edit_expense,
+    delete_expense
 } = require('../services/transactions.services');
 const {arima_forecast} = require('../services/forecasting.services');
 
@@ -31,6 +32,7 @@ router.get('/expense/year/:user_id', get_amount_year);
 router.get('/expense/custom/:start_date/:end_date/:user_id', get_amount_custom);
 router.get('/expense/category/:start_date/:end_date/:user_id', get_category_amount);
 router.put('/expense/edit/:id', edit_expense);
+router.delete('/expense/remove/:id', delete_expense);
 
 
 router.get('/forecast/:user_id', arima_forecast);

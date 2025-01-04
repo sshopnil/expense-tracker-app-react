@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 const categories = [
   'Food and Drinks', 'Shopping', 'Housing', 'Transportation', 'Vehicle', 'Entertainment', 'Electronics', 'Financial Expenses', 'Investments'
 ];
-export default function ReportList({ filter, handleEdit, setForm, form }) {
+export default function ReportList({ filter, handleEdit, setForm, form, handleDelete}) {
   const [activeRow, setActiveRow] = React.useState(null);
 
   return (
@@ -125,6 +125,7 @@ export default function ReportList({ filter, handleEdit, setForm, form }) {
                               <Button
                                 variant='text'
                                 sx={{ color: '#fe0032', fontWeight: 'bolder' }}
+                                onClick={()=>handleDelete(it?._id)}
                               >
                                 Delete
                               </Button>
@@ -165,5 +166,6 @@ ReportList.propTypes = {
   filter: PropTypes.object,
   handleEdit: PropTypes.func,
   setForm: PropTypes.func,
-  form: PropTypes.object
+  form: PropTypes.object,
+  handleDelete: PropTypes.func
 };

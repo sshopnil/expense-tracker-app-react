@@ -269,13 +269,50 @@ exports.edit_expense = async (req, res, next) => {
         if (!update_expense) {
             return res.status(404).json({ message: 'Expense not found' });
         }
-        availableFund.save();
+        await availableFund.save();
         res.status(200).json(update_expense);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating expense', error: error.message });
     }
+    finally{
+        next();
+    }
 }
+
+
+exports.delete_expense = async (req, res, next) => {
+    // #swagger.tags = ['/transaction']
+
+    const { id } = req.params;
+
+    try {
+        const deleted_inf = await ExpenseSchema.findOne({_id:id});
+
+        const availableFund = await FundModel.findOne({ userId: deleted_inf.userId });
+        
+        const new_amount = availableFund.totalFund + deleted_inf.amount;
+        availableFund.totalFund = new_amount;
+
+        
+        const deleted_expense = await ExpenseSchema.findByIdAndDelete(id);
+
+        if (!deleted_expense) {
+            return res.status(404).json({ message: 'Expense not found' });
+        }
+
+        await availableFund.save();
+
+        res.status(200).json({ message: 'Expense deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error deleting expense', error: error.message });
+    }
+    finally{
+        next();
+    }
+}
+
 
 
 
