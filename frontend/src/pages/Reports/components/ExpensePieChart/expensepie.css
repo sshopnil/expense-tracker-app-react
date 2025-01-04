@@ -1,11 +1,13 @@
 .container-pie{
-    height: 75vh;
-    width: 40vw;
-    box-sizing: border-box;
+    height: 70vh;
+    width: 35vw;
+    box-sizing: content-box;
     background: #30355b;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    margin-left: auto;
+    margin-right: auto;
+    overflow-y: scroll;
+    padding: 20px;
 }
 
 .mid-components-pie{

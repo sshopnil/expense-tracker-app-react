@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 export const ForecastData = ({data}) => {
     // console.log(data);
-    const fixedData = data?.map((item)=> {return {date: item.date, value: parseFloat(item.amount)}})
+    const modifiedData = data?.map((item)=> {return {date: item.date, value: parseFloat(item.amount)}})
     return (
         <div className="history-card">
             <Typography
@@ -22,7 +22,7 @@ export const ForecastData = ({data}) => {
                 Forecasted Expenses
             </Typography>
             <div className="log-table">
-                <ForecastChart data={fixedData}/>
+                <ForecastChart data={modifiedData}/>
             </div>
         </div>
     )

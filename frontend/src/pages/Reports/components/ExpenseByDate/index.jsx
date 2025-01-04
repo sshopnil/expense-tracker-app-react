@@ -8,23 +8,44 @@ import { useAuth } from '../../../../context/auth';
 import { URL } from '../../../../GLOBAL_URL';
 import axios from 'axios';
 import ReportList from './components/ReportList';
+import {toast} from 'react-toastify';
+
 
 export const ExpenseByDate = () => {
     const auth = useAuth();
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null);
     const [filter, setFilter] = useState([]);
+    const [form, setForm] = useState(
+        {
+            title: null,
+            amount: null,
+            category:null
+        }
+    )
 
     const onReportSubmit = async () => {
         if (start && end) {
             try {
-                const res = await axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`);
+                const res = await toast.promise(
+                    axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
+                    {
+                      pending: 'Pending to load data...',
+                      success: `Expenses are loaded`,
+                      error: 'Failed to load expenses 🤯'
+                    }
+                );
                 setFilter(res.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
     };
+
+    const handleEdit = (id)=>{
+        console.log(id);
+        console.log(form);
+    }
 
     return (
         <div className="container-bydate">
@@ -90,7 +111,7 @@ export const ExpenseByDate = () => {
                 {
                     filter.length != 0 ?
                         <>
-                            <ReportList filter={filter} />
+                            <ReportList filter={filter} handleEdit={handleEdit} setForm={setForm} form={form}/>
                             <div className="total-money">
                                 <Typography sx={
                                     {
