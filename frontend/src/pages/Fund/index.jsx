@@ -45,7 +45,7 @@ export const Fund = () => {
             <AddForm fetch={fetchFund} />
             <div className="middle">
                 <BalanceCard data={fund} />
-                <BalanceTrend />
+                {/* <BalanceTrend /> */}
             </div>
             <ForecastData data={forecast} />
         </div>

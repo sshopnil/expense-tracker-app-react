@@ -8,7 +8,7 @@ import { useAuth } from '../../../../context/auth';
 import { URL } from '../../../../GLOBAL_URL';
 import axios from 'axios';
 import ReportList from './components/ReportList';
-import {toast} from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 
 
 export const ExpenseByDate = () => {
@@ -31,7 +31,7 @@ export const ExpenseByDate = () => {
                     axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
                     {
                       pending: 'Pending to load data...',
-                      success: `Expenses are loaded`,
+                      success: `Expenses Loaded`,
                       error: 'Failed to load expenses 🤯'
                     }
                 );
@@ -50,8 +50,8 @@ export const ExpenseByDate = () => {
                 axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
                 {
                   pending: 'Pending to load data...',
-                  success: `Expenses are loaded`,
-                  error: 'Failed to load expenses 🤯'
+                  success: `Fund updated`,
+                  error: 'Failed to update fund 🤯'
                 }
             );
             setFilter(res.data);
@@ -67,8 +67,8 @@ export const ExpenseByDate = () => {
                 axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
                 {
                   pending: 'Pending to load data...',
-                  success: `Expenses are loaded`,
-                  error: 'Failed to load expenses 🤯'
+                  success: `Fund updated`,
+                  error: 'Failed to update fund 🤯'
                 }
             );
             setFilter(res.data);
@@ -167,6 +167,18 @@ export const ExpenseByDate = () => {
                         <Typography>Not filtered yet</Typography>
                 }
             </div>
+            <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                  />
         </div>
     );
 };
