@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 export const ForecastData = ({data}) => {
     // console.log(data);
+    const fixedData = data?.map((item)=> {return {date: item.date, value: parseFloat(item.amount)}})
     return (
         <div className="history-card">
             <Typography
@@ -18,10 +19,10 @@ export const ForecastData = ({data}) => {
                 }}
             >
                 <PointOfSaleIcon sx={{ marginRight: '10px', color: '#a7e6c8', fontSize: 20, alignSelf: 'center', textAlign: 'center' }} />
-                Future Data
+                Forecasted Expenses
             </Typography>
             <div className="log-table">
-                <ForecastChart data={data}/>
+                <ForecastChart data={fixedData}/>
             </div>
         </div>
     )

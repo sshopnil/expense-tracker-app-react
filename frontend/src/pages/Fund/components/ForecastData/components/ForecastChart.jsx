@@ -1,34 +1,41 @@
 import * as React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { dataset, valueFormatter } from './dataset';
 import PropTypes from 'prop-types';
 
 
+function valueFormatter(value) {
+  return `Tk. ${value}`;
+}
 const chartSetting = {
-  yAxis: [
-    {
-      label: 'rainfall (mm)',
-    },
-  ],
-  series: [{ dataKey: 'amount', label: 'Seoul rainfall', valueFormatter }],
+  series: [{ dataKey: 'value', label: 'Expenses For Next 7 Days', valueFormatter }],
   height: 300,
   sx: {
     '& .axisClasses.directionY .axisClasses.label': {
       transform: 'translateX(-10px)',
     },
+    '& .MuiChartsAxis-root': {
+      stroke: '#f1ae1b'
+    },
+    '& .MuiChartsAxis-line': {
+      stroke: '#f1ae1b'
+    },
+    '& .MuiChartsLegend-root':{
+      stroke: 'white'
+    }
   },
 };
 
-export default function ForecastChart({data}) {
-  
+export default function ForecastChart({ data }) {
+
   return (
     <BarChart
-        dataset={data}
-        xAxis={[
-          { scaleType: 'band', dataKey: 'date'},
-        ]}
-        {...chartSetting}
-      />
+      dataset={data}
+      xAxis={[
+        { scaleType: 'band', dataKey: 'date'},
+      ]}
+      barLabel={(item) => `${item.value} ৳`}
+      {...chartSetting}
+    />
   );
 }
 

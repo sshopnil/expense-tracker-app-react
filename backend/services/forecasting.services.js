@@ -33,7 +33,6 @@ exports.arima_forecast = async (req, res, next) => {
       future_dates.push(dayjs(future_date).format('DD/MM/YYYY'));
     }
 
-
     const predicted_date_amount = future_dates.map((date, index) => ({
       date: date,
       amount: pred_values[index].toFixed(2)
