@@ -21,6 +21,9 @@ const chartSetting = {
     },
     '& .MuiChartsLegend-root':{
       stroke: 'white'
+    },
+    '& .MuiBarLabel-root':{
+      fill:'white'
     }
   },
 };

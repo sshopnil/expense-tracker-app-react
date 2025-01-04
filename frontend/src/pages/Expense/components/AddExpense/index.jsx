@@ -26,16 +26,6 @@ export const ExpenseRecord = ({fetchData}) => {
     category: '',
     date: dayjs().toISOString(),
   });
-  const notifySucess = () => toast.success(`expense of ${form.amount}৳ occurred`, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: false,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
 
   // Handle form submission
   const handleAddExpense = async (e) => {
@@ -45,7 +35,16 @@ export const ExpenseRecord = ({fetchData}) => {
       alert("Please fill out all required fields.");
       return;
     }
-    const res = await axios.post(`${URL}/transaction/add-expense/${auth.user}`, form);
+    // const res = await axios.post(`${URL}/transaction/add-expense/${auth.user}`, form);
+
+    const res = await toast.promise(
+      axios.post(`${URL}/transaction/add-expense/${auth.user}`, form),
+      {
+        pending: 'Pending to add expense...',
+        success: `${form.amount}৳ deducted from the fund -💵`,
+        error: 'Failed to add expense 🤯'
+      }
+  );
     if (res.status == 200) {
       await fetchData();
       setForm(
@@ -56,7 +55,6 @@ export const ExpenseRecord = ({fetchData}) => {
           date: dayjs().toISOString(),
         }
       );
-      notifySucess();
     }
   };
 

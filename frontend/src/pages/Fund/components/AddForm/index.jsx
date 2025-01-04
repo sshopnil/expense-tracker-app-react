@@ -12,17 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export const AddForm = ({ fetch }) => {
   const auth = useAuth();
-  const [formData, setFormData] = React.useState({ amount: 0 });
-  const notifySucess = () => toast.success(`${formData.amount}৳ Added to the fund 💵`, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: false,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
+  const [formData, setFormData] = React.useState({ amount: ''});
   const notifyWarning = ()=>{
     toast.warn('Add amount more than 0 to the fund', {
       position: "top-right",
@@ -38,12 +28,18 @@ export const AddForm = ({ fetch }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.amount) {
-      const res = await axios.post(`${URL}/transaction/add-fund/${auth.user}`, formData);
+      const res = await toast.promise(
+        axios.post(`${URL}/transaction/add-fund/${auth.user}`, formData),
+        {
+          pending: 'Pending to add money...',
+          success: `${formData.amount}৳ Added to the fund 💵`,
+          error: 'Failed to add fund 🤯'
+        }
+    );
 
       if (res.data.msg) {
-        setFormData({amount: 0});
+        setFormData({amount: ''});
         await fetch();
-        notifySucess();
       }
     }
     else{
