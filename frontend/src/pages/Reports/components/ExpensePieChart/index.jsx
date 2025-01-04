@@ -4,15 +4,40 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import './expensepie.css'
+import PieAnimation from './components/PieAnimation';
+import { URL } from '../../../../GLOBAL_URL';
+import axios from 'axios';
+import { useAuth } from '../../../../context/auth';
+import { useState } from 'react';
 
 export const ExpensePieChart = ()=>{
+    const auth = useAuth();
+    const [chartData, setChartData] = useState(null);
+    const [start, setStart] = useState(null);
+    const [end, setEnd] = useState(null);
+
+    const FetchChartData = async()=>{
+        if (start && end) {
+            try {
+                // const res = await axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`);
+                // // setChartData(res.data);
+                // res?.data?.forEach(item=>{
+
+                // })
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    }
     return (
         <div className="container-pie">
             <Typography sx={{ p: 2, textAlign: 'center', fontWeight: 'bolder' }}>Expenditures Per Category</Typography>
             <div className="mid-components-pie">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
-                            slotProps={{ textField: { variant: "standard" } }}
+                            value={start}
+                            onChange={(newVal) => setStart(newVal)}
+                            slotProps={{ textField: { variant: 'standard' } }}
                             sx={{
                                 'MuiOutlinedInput-input': {
                                     border: '1px solid white !important'
@@ -46,7 +71,9 @@ export const ExpensePieChart = ()=>{
                             }}
                             label="Start Date" />
                         <DatePicker
-                            slotProps={{ textField: { variant: "standard" } }}
+                            value={end}
+                            onChange={(newVal) => setEnd(newVal)}
+                            slotProps={{ textField: { variant: 'standard' } }}
                             sx={{
                                 'MuiOutlinedInput-input': {
                                     border: '1px solid white !important'
@@ -82,6 +109,7 @@ export const ExpensePieChart = ()=>{
                 </LocalizationProvider>
                 <Button variant='contained'>Go</Button>
             </div>
+            <PieAnimation chartData= {chartData}/>
         </div>
     )
 }

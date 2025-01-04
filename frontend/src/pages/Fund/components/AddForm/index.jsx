@@ -10,7 +10,7 @@ import { URL } from '../../../../GLOBAL_URL';
 import { useAuth } from '../../../../context/auth';
 import { ToastContainer, toast } from 'react-toastify';
 
-export const AddForm = ({ fetchFund }) => {
+export const AddForm = ({ fetch }) => {
   const auth = useAuth();
   const [formData, setFormData] = React.useState({ amount: 0 });
   const notifySucess = () => toast.success(`${formData.amount}৳ Added to the fund 💵`, {
@@ -39,10 +39,11 @@ export const AddForm = ({ fetchFund }) => {
     e.preventDefault();
     if (formData.amount) {
       const res = await axios.post(`${URL}/transaction/add-fund/${auth.user}`, formData);
+
       if (res.data.msg) {
         setFormData({amount: 0});
-        notify();
-        await fetchFund();
+        await fetch();
+        notifySucess();
       }
     }
     else{

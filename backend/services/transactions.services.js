@@ -196,6 +196,47 @@ exports.get_amount_custom = async (req, res, next) => {
 };
 
 
+//getting expenses amount incurred in custom range
+exports.get_category_amount = async (req, res, next) => {
+    // #swagger.tags = ['/transaction']
+
+    const { user_id, start_date, end_date } = req.params;
+
+    try {
+        const start = dayjs(start_date).startOf('day').toDate();
+        const end = dayjs(end_date).endOf('day').toDate();
+        
+        const expenses = await ExpenseSchema.find({
+            userId: user_id,
+            date: {
+                $gte: start,
+                $lte: end
+            }
+        });
+
+        let totalAmount = 0;
+        const categoryTotal = {};
+// console.log(expenses);
+        expenses.forEach(expense => {
+
+            if (!categoryTotal[expense.category]) {
+                categoryTotal[expense.category] = {
+                    total: 0
+                };
+            }
+            categoryTotal[expense.category].total += expense.amount;
+        });
+
+        res.status(200).json({categoryTotal});
+    } catch (e) {
+        console.error("Error fetching expenses:", e);
+        res.status(400).json({ msg: 'Error fetching expenses' });
+    } finally {
+        next();
+    }
+};
+
+
 
 
 // ==============================================fund services====================================================
