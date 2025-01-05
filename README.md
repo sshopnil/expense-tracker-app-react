@@ -10,8 +10,8 @@
 
 ---
 
-# Folder Structure
-## Backend
+## Folder Structure
+### Backend
 ```
 backend/
 ├── database/
@@ -36,7 +36,7 @@ backend/
 ```
 
 
-## FrontEnd
+### FrontEnd
 ```
 frontend/
 ├── node_modules/        # Contains all npm dependencies (auto-generated during installation)
@@ -75,28 +75,28 @@ frontend/
 ```
 ---
 
-# Features
+## Features
 
-## 1. Easy UI for Adding Funds
+### 1. Easy UI for Adding Funds
 A streamlined and intuitive interface designed for quick and hassle-free addition of funds. Users can add funds with just a few clicks, ensuring a seamless user experience.
 
 ---
 
-## 2. Forecasting Future Expenses from Historical Data
+### 2. Forecasting Future Expenses from Historical Data
 Leverage data-driven insights to predict your future expenses based on past trends. This feature uses statistical algorithms to provide you with an estimate of upcoming expenditures, helping you plan better.
 
 ![Forecasting Screenshot Placeholder](assets/fund.png)
 
 ---
 
-## 3. Managing Recent Expenses with Updates
+### 3. Managing Recent Expenses with Updates
 Track your recent expenses and make real-time updates. Modify entries, adjust amounts, or delete outdated records with ease to keep your data accurate and up-to-date.
 
 ![Manage Expenses Screenshot Placeholder](assets/expenses.png)
 
 ---
 
-## 4. Managing Reports from Date Range
+### 4. Managing Reports from Date Range
 Generate detailed reports for a specific date range. Reports include:
 - **Pie Charts**: Visualize your expense distribution.
 - **Expense Lists**: Access itemized lists for transparency and detailed tracking.
@@ -108,13 +108,13 @@ Generate detailed reports for a specific date range. Reports include:
 
 ---
 
-## 5. Material Design
+### 5. Material Design
 The app leverages Material Design principles to provide a sleek, modern, and user-friendly interface. The design ensures consistency, responsiveness, and accessibility across devices.
 
 
 ---
 
-# Installation and Setup
+## Installation and Setup
 
 1. Clone the repository:
    ```bash
@@ -149,7 +149,7 @@ The app leverages Material Design principles to provide a sleek, modern, and use
 
 ---
 
-# Technology Stack
+## Technology Stack
 
 - **Frontend**: React with Material-UI
 - **Backend**: Node.js with Express
