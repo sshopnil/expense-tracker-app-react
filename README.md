@@ -39,8 +39,9 @@ Generate detailed reports for a specific date range. Reports include:
 - **Expense Lists**: Access itemized lists for transparency and detailed tracking.
 
 ![Reports Screenshot Placeholder](assets/reports.png)
-Managing Reports
-|![Recenet Expenses](assets/update_recent.png)|![Specified expenses from date range](assets/update_reports.png)|
+| Recenet Expense Management | Specified expenses from date range | 
+|-----------|--------------|
+|![Recenet Expenses](assets/update_recent.png) | ![Specified expenses from date range](assets/update_reports.png)|
 
 ---
 
