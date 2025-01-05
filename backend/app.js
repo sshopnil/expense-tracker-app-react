@@ -11,7 +11,7 @@ const userRouter = require('./routes/users.route');
 
 //configurations
 require('dotenv').config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 //middlewares
 app.use(express.json());
@@ -23,7 +23,7 @@ app.use('/user', userRouter);
 
 const server = () =>{
     connectDB();
-    app.listen(5000, () => {
+    app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
       }).on('error', (err) => {
         if (err.code === 'EADDRINUSE') {

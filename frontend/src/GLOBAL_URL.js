@@ -1,1 +1,1 @@
-export const URL = 'http://localhost:5000'
+export const URL = 'https://expense-tracker-app-backend-i7w6.onrender.com'
