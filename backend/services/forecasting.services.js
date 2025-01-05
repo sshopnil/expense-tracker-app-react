@@ -38,7 +38,7 @@ exports.arima_forecast = async (req, res, next) => {
       P: 1,
       D: 0,
       Q: 1,
-      S: 2,
+      S: 7,
       verbose: false
     }).train(ts);
 
