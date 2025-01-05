@@ -1,6 +1,6 @@
 # Expense Tracker App
 
-![App Screenshot Placeholder](#)
+![App Screenshot Placeholder](assets/login.png)
 
 ## Live Link
 
