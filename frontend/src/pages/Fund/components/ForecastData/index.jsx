@@ -6,7 +6,7 @@ import ForecastChart from './components/ForecastChart';
 import PropTypes from 'prop-types';
 
 export const ForecastData = ({data, isAvailable}) => {
-    // console.log(data);
+    // console.log(isAvailable);
     return (
         <div className="history-card">
             <Typography
@@ -28,5 +28,6 @@ export const ForecastData = ({data, isAvailable}) => {
 }
 
 ForecastChart.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    isAvailable: PropTypes.bool
 }

@@ -1,9 +1,9 @@
-const ARIMAPromise = require('arima/async');
 const ExpenseSchema = require('../schemas/transactions.expense-schema');
 const dayjs = require('dayjs');
 
 exports.arima_forecast = async (req, res, next) => {
   // #swagger.tags = ['/forecast']
+  const ARIMAPromise = require('arima/async')
 
   const { user_id } = req.params;
   const expenses = await ExpenseSchema.find({ userId: user_id }).sort({ date: 1 });

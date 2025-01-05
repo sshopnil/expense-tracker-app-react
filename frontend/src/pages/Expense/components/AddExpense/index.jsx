@@ -110,12 +110,12 @@ export const ExpenseRecord = ({fetchData}) => {
 
         {/* Category Dropdown */}
         <NativeSelect
-          defaultValue={form.category}
+          value={form.category}
           onChange={(e) => setForm({ ...form, category: e.target.value })}
           sx={selectStyles}
           required
         >
-          <option value="" disabled hidden selected>Select a Category</option>
+          <option value="" disabled hidden>Select a Category</option>
           {categories.map((category, index) => (
             <option key={index} value={category}>{category}</option>
           ))}
@@ -133,17 +133,6 @@ export const ExpenseRecord = ({fetchData}) => {
             disabled
           />
         </LocalizationProvider>
-
-        {/* Description Field */}
-        <TextField
-          id="outlined-multiline-static"
-          label="Description"
-          multiline
-          rows={2}
-          variant='standard'
-          sx={textFieldStyles}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-        />
 
         {/* Submit Button */}
         <Button
