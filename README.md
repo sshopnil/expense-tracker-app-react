@@ -1,6 +1,6 @@
 # Expense Tracker App
 
-![App Screenshot Placeholder](assets/login.png)
+![App Screenshot Placeholder](#)
 
 ## Live Link
 
@@ -17,21 +17,19 @@
 ### 1. Easy UI for Adding Funds
 A streamlined and intuitive interface designed for quick and hassle-free addition of funds. Users can add funds with just a few clicks, ensuring a seamless user experience.
 
-![Add Funds Screenshot Placeholder](#)
-
 ---
 
 ### 2. Forecasting Future Expenses from Historical Data
 Leverage data-driven insights to predict your future expenses based on past trends. This feature uses statistical algorithms to provide you with an estimate of upcoming expenditures, helping you plan better.
 
-![Forecasting Screenshot Placeholder](#)
+![Forecasting Screenshot Placeholder](assets/fund.png)
 
 ---
 
 ### 3. Managing Recent Expenses with Updates
 Track your recent expenses and make real-time updates. Modify entries, adjust amounts, or delete outdated records with ease to keep your data accurate and up-to-date.
 
-![Manage Expenses Screenshot Placeholder](#)
+![Manage Expenses Screenshot Placeholder](assets/expenses.png)
 
 ---
 
@@ -40,14 +38,13 @@ Generate detailed reports for a specific date range. Reports include:
 - **Pie Charts**: Visualize your expense distribution.
 - **Expense Lists**: Access itemized lists for transparency and detailed tracking.
 
-![Reports Screenshot Placeholder](#)
+![Reports Screenshot Placeholder](assets/reports.png)
 
 ---
 
 ### 5. Material Design
 The app leverages Material Design principles to provide a sleek, modern, and user-friendly interface. The design ensures consistency, responsiveness, and accessibility across devices.
 
-![Material Design Screenshot Placeholder](#)
 
 ---
 
