@@ -1,7 +1,6 @@
 import { BalanceCard } from "./components/BalanceCard/BalanceCard"
 import { AddForm } from "./components/AddForm"
 import { ForecastData } from "./components/ForecastData"
-// import { BalanceTrend } from "./components/BalanceTrend"
 import './fund.css'
 import { useEffect, useState } from "react"
 import axios from 'axios'
@@ -56,7 +55,6 @@ export const Fund = () => {
             <AddForm fetch={fetchFund} />
             <div className="middle">
                 <BalanceCard data={fund} />
-                {/* <BalanceTrend /> */}
             </div>
             <ForecastData data={forecast} isAvailable={isAvailable}/>
         </div>

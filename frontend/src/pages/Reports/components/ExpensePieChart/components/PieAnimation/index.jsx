@@ -31,16 +31,16 @@ export default function PieAnimation({ chartData }) {
         ]}
         sx={{
           '.MuiPieArcLabel-root': {
-            fill: 'white',  // Make arc labels white
+            fill: 'white', 
           },
           '.MuiChartsLegend-series': {
             text:{
-              fill: 'white !important',  // Ensure legend text is white
+              fill: 'white !important',
 
             }
           },
           '.MuiTypography-root': {
-            color: 'white',  // Apply to any general typography used in the chart
+            color: 'white',
           },
         }}
         skipAnimation={false}

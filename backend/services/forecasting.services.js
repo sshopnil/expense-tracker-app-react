@@ -30,6 +30,7 @@ exports.arima_forecast = async (req, res, next) => {
     const ARIMA = await ARIMAPromise;
     const ts = expenses.map((item) => item.amount); 
 
+    //seasonal arima 
     const arima = new ARIMA({
       p: 0,
       d: 0,

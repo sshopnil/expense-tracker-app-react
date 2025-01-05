@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
 }, {timestamps:true});
 
 
+
+//generate auto increment id
 UserSchema.plugin(AutoIncrement, { inc_field: 'user_id' });
 
 

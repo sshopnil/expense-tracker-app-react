@@ -20,11 +20,11 @@ const {
 const {arima_forecast} = require('../services/forecasting.services');
 
 //routes
-router.post('/add-expense/:user_id', add_expense);
 router.post('/add-fund/:user_id', add_fund);
 router.get('/fund/:user_id', get_fund);
 
-
+//expenses routes
+router.post('/add-expense/:user_id', add_expense);
 router.get('/expense/:user_id', get_all_expenses);
 router.get('/expense/today/:user_id', get_amount_today);
 router.get('/expense/month/:user_id', get_amount_month);
@@ -34,6 +34,6 @@ router.get('/expense/category/:start_date/:end_date/:user_id', get_category_amou
 router.put('/expense/edit/:id', edit_expense);
 router.delete('/expense/remove/:id', delete_expense);
 
-
+// forecasting route 
 router.get('/forecast/:user_id', arima_forecast);
 module.exports = router;

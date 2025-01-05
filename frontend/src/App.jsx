@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Reports } from "./pages/Reports";
 import { Expense } from "./pages/Expense";
 import { Fund } from './pages/Fund'
@@ -9,7 +9,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import { TopBar } from './components/TopBar';
-import { AuthProvider, useAuth } from './context/auth';
+import { useAuth } from './context/auth';
 import { RequiredAuth } from './context/required';
 
 const loginStyle = ()=>{
