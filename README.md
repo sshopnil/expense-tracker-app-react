@@ -158,13 +158,3 @@ The app leverages Material Design principles to provide a sleek, modern, and use
 
 ---
 
-## Contribution
-
-Feel free to fork the repository and contribute to improving this project. Pull requests are welcome!
-
----
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
