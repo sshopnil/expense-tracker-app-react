@@ -1,6 +1,6 @@
 # Expense Tracker App
-
-![App Screenshot Placeholder](#)
+The default login email is: #test@mail.com
+![App Screenshot Placeholder](assets/login)
 
 ## Live Link
 [Live link](https://expense-tracker-app-frontend-skst.onrender.com)
