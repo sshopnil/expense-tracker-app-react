@@ -5,22 +5,30 @@ import { useAuth } from '../../../context/auth';
 import { useNavigate } from 'react-router-dom';
 import { URL } from '../../../GLOBAL_URL';
 import axios from 'axios';
-
+import Alert from '@mui/material/Alert';
 
 export const Login = () => {
     const [user, setUser] = useState(null);
-    const [form, setForm] = useState({email: ''});
+    const [form, setForm] = useState({ email: '' });
     const auth = useAuth();
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
 
-    const handleSubmit = async(e)=>{
+    // console.log(show);
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if(form.email){
+        if (form.email) {
 
-            const res = await axios.get(`${URL}/user/login/${form.email}`);
-            if(res.status == 200){
-                auth.login(res.data.user.user_id);
-                navigate('/', {replace: true});
+            try {
+                const res = await axios.get(`${URL}/user/login/${form.email}`);
+                if (res.status == 200) {
+                    auth.login(res.data.user.user_id);
+                    navigate('/', { replace: true });
+                }
+            }
+            catch(e){
+                console.log('error in login');
+                setShow(true);
             }
             // console.log(auth.user);
         }
@@ -38,19 +46,20 @@ export const Login = () => {
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
+
                 <TextField
                     id="email"
                     label="Your Email"
                     variant='standard'
                     value={form.email}
-                    onChange={(e)=>setForm({...form, email: e.target.value})}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
                     sx={{
                         '.MuiInputBase-root': {
                             input: {
                                 color: 'white',
                                 fontSize: '16px',
                                 borderRadius: '5px',
-                                padding:'5px',
+                                padding: '5px',
                                 marginTop: '10px'
                             },
                         },
@@ -78,6 +87,7 @@ export const Login = () => {
                 <Button type="submit" sx={{ backgroundColor: "rgba(45, 158, 219, 0.2)", margin: "0 10px" }} variant="contained" >
                     Login
                 </Button>
+                {show && <Alert severity="error">Wrong Credential</Alert>}
             </Box>
         </Box>
     );
