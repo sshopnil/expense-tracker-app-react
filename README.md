@@ -1,5 +1,6 @@
 # Expense Tracker App
-The default login email is: **test@mail.com
+The default login email is: 
+## test@mail.com
 ![App Screenshot Placeholder](assets/login.png)
 
 ## Live Link
