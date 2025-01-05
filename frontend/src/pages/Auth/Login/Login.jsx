@@ -1,5 +1,5 @@
 
-import { TextField, Box, Button } from '@mui/material';
+import { TextField, Box, Button, CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import { useAuth } from '../../../context/auth';
 import { useNavigate } from 'react-router-dom';
@@ -13,26 +13,26 @@ export const Login = () => {
     const auth = useAuth();
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    // console.log(show);
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (form.email) {
-
+            setLoading(true); // Start loading
             try {
                 const res = await axios.get(`${URL}/user/login/${form.email}`);
-                if (res.status == 200) {
+                if (res.status === 200) {
                     auth.login(res.data.user.user_id);
                     navigate('/', { replace: true });
                 }
-            }
-            catch(e){
-                console.log('error in login');
+            } catch (e) {
+                console.error('Error in login:', e);
                 setShow(true);
+            } finally {
+                setLoading(false); // Stop loading
             }
-            // console.log(auth.user);
         }
-    }
+    };
     return (
         <Box sx={{
             display: 'flex',
@@ -84,8 +84,19 @@ export const Login = () => {
                     type='email'
                 />
 
-                <Button type="submit" sx={{ backgroundColor: "rgba(45, 158, 219, 0.2)", margin: "0 10px" }} variant="contained" >
-                    Login
+                <Button
+                    type="submit"
+                    sx={{
+                        backgroundColor: 'rgba(45, 158, 219, 0.2)',
+                        margin: '0 10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                    variant="contained"
+                    disabled={loading}
+                >
+                    {loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Login'}
                 </Button>
                 {show && <Alert severity="error">Wrong Credential</Alert>}
             </Box>
