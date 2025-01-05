@@ -11,6 +11,7 @@
 ---
 
 ## Folder Structure
+```
 frontend/
 ├── node_modules/        # Contains all npm dependencies (auto-generated during installation)
 ├── public/              # Public files served directly by the server
@@ -45,6 +46,7 @@ frontend/
 ├── GLOBAL_URL.js       # Configuration file for API endpoints or global constants
 ├── index.css           # Base CSS for the application
 ├── main.jsx            # Main entry file/Application Entry point
+```
 ---
 
 ## Features
