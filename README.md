@@ -3,8 +3,7 @@
 ![App Screenshot Placeholder](#)
 
 ## Live Link
-
-[Live Application Link](https://expense-tracker-app-frontend-skst.onrender.com)
+<a href="[https://example.com](https://expense-tracker-app-frontend-skst.onrender.com)" target="_blank">Live Application Link</a>
 
 ## API Documentation
 
