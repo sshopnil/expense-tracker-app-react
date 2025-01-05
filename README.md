@@ -10,6 +10,43 @@
 
 ---
 
+## Folder Structure
+frontend/
+├── node_modules/        # Contains all npm dependencies (auto-generated during installation)
+├── public/              # Public files served directly by the server
+├── src/                 # Source files for the application
+│   ├── assets/          # Static assets
+│   ├── components/      # Reusable UI components (Sidebar, TopBar, etc.)
+│   ├── context/         # Global context for state management
+│   ├── pages/           # Application pages, divided into features/modules
+│   │   ├── Auth/        # Pages for authentication (Login, Register)
+│   │   ├── Expense/     # Pages and components for managing expenses
+│   │   │   ├── AddExpense/            # Component for adding expenses
+│   │   │   ├── ExpenseTrackByDay/     # Component for tracking daily expenses
+│   │   │   ├── RecentExpenses/        # Component for viewing recent expenses
+│   │   │   ├── expense.css            # Styles specific to expense-related pages
+│   │   │   ├── index.jsx              # Entry point for Expense pages
+│   │   ├── Fund/                      # Pages and components for managing funds
+│   │   │   ├── components/            # Sub-components for Fund management
+│   │   │   │   ├── AddForm/           # Component for adding funds
+│   │   │   │   ├── BalanceCard/       # Component for displaying balance summary
+│   │   │   │   ├── ForecastData/      # Component for expense forecasting for the next 7 days
+│   │   │   ├── styles/                # CSS specific to Fund pages
+│   │   │   ├── fund.css               # Main styles for Fund pages
+│   │   │   ├── index.jsx              # Entry point for Fund pages
+│   │   ├── Reports/                   # Pages for viewing reports
+│   │   │   ├── components/            # Sub-components for reports
+│   │   │   │   ├── ExpenseByDate/     # Component for date-range reports
+│   │   │   │   ├── ExpensePieChart/   # Component for visualizing expenses in a pie chart
+│   │   │   ├── report.css             # Styles specific to Reports pages
+│   │   │   ├── index.jsx              # Entry point for Reports pages
+├── App.css             # Global CSS for the application
+├── App.jsx             # Main React component for the app
+├── GLOBAL_URL.js       # Configuration file for API endpoints or global constants
+├── index.css           # Base CSS for the application
+├── main.jsx            # Main entry file/Application Entry point
+---
+
 ## Features
 
 ### 1. Easy UI for Adding Funds
