@@ -21,7 +21,7 @@ export default function PieAnimation({ chartData }) {
             innerRadius: 50,
             outerRadius: 180,
             arcLabel: 'formattedValue',
-            arcLabelMinAngle: 15,
+            arcLabelMinAngle: 30,
             cx: 200,
             cy: 200,
             paddingAngle: 2,

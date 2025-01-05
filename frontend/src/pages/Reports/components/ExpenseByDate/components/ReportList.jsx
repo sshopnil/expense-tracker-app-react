@@ -100,6 +100,7 @@ export default function ReportList({ filter, handleEdit, setForm, form, handleDe
                         </TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>
                           <input
+                          type='number'
                             value={isActive ? form.amount : it?.amount}
                             onChange={(e) => setForm({ ...form, amount: parseFloat(e.target.value) })}
                             style={{

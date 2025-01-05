@@ -41,12 +41,15 @@ export const ExpenseRecord = ({fetchData}) => {
       axios.post(`${URL}/transaction/add-expense/${auth.user}`, form),
       {
         pending: 'Pending to add expense...',
-        success: `${form.amount}৳ deducted from the fund -💵`,
+        success: {render(){
+          fetchData()
+          return `${form.amount}৳ deducted from the fund -💵`
+        }},
         error: 'Failed to add expense 🤯'
       }
   );
     if (res.status == 200) {
-      await fetchData();
+      fetchData();
       setForm(
         {
           title: '',
@@ -110,6 +113,7 @@ export const ExpenseRecord = ({fetchData}) => {
 
         {/* Category Dropdown */}
         <NativeSelect
+          defaultValue={form.category}
           value={form.category}
           onChange={(e) => setForm({ ...form, category: e.target.value })}
           sx={selectStyles}
@@ -133,6 +137,7 @@ export const ExpenseRecord = ({fetchData}) => {
             disabled
           />
         </LocalizationProvider>
+
 
         {/* Submit Button */}
         <Button

@@ -59,7 +59,7 @@ export const Expense = () => {
             <ExpenseTrack day={thisday} month={thisMonth} year={thisYear}/>
             <div className="last-section">
                 <ExpenseRecord fetchData = {fetchAllData}/>
-                <RecentExpenses day={thisday}/>
+                <RecentExpenses day={thisday} fetchData = {fetchAllData}/>
             </div>
         </div>
     )

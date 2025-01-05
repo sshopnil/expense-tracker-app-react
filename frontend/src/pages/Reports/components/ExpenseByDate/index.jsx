@@ -8,7 +8,7 @@ import { useAuth } from '../../../../context/auth';
 import { URL } from '../../../../GLOBAL_URL';
 import axios from 'axios';
 import ReportList from './components/ReportList';
-import {toast, ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 export const ExpenseByDate = () => {
@@ -20,7 +20,7 @@ export const ExpenseByDate = () => {
         {
             title: null,
             amount: null,
-            category:null
+            category: null
         }
     )
 
@@ -30,9 +30,9 @@ export const ExpenseByDate = () => {
                 const res = await toast.promise(
                     axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
                     {
-                      pending: 'Pending to load data...',
-                      success: `Expenses Loaded`,
-                      error: 'Failed to load expenses 🤯'
+                        pending: 'Pending to load data...',
+                        success: `Expenses Loaded`,
+                        error: 'Failed to load expenses 🤯'
                     }
                 );
                 setFilter(res.data);
@@ -42,33 +42,34 @@ export const ExpenseByDate = () => {
         }
     };
 
-    const handleEdit = async(id)=>{
+    const handleEdit = async (id) => {
         // console.log(form);
         try {
-            await axios.put(`${URL}/transaction/expense/edit/${id}`, form);
-            const res = await toast.promise(
-                axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
+
+            await toast.promise(
+                axios.put(`${URL}/transaction/expense/edit/${id}`, form),
                 {
-                  pending: 'Pending to load data...',
-                  success: `Fund updated`,
-                  error: 'Failed to update fund 🤯'
+                    pending: 'Pending to load data...',
+                    success: 'Fund Updated',
+                    error: 'Failed to update fund 🤯'
                 }
             );
+            const res = await axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`);
             setFilter(res.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
 
-    const handleDelete = async(id)=>{
+    const handleDelete = async (id) => {
         try {
             await axios.delete(`${URL}/transaction/expense/remove/${id}`);
             const res = await toast.promise(
                 axios.get(`${URL}/transaction/expense/custom/${start.toString()}/${end.toString()}/${auth.user}`),
                 {
-                  pending: 'Pending to load data...',
-                  success: `Fund updated`,
-                  error: 'Failed to update fund 🤯'
+                    pending: 'Pending to load data...',
+                    success: `Fund updated`,
+                    error: 'Failed to update fund 🤯'
                 }
             );
             setFilter(res.data);
@@ -141,7 +142,7 @@ export const ExpenseByDate = () => {
                 {
                     filter.length != 0 ?
                         <>
-                            <ReportList filter={filter} handleEdit={handleEdit} setForm={setForm} form={form} handleDelete={handleDelete}/>
+                            <ReportList filter={filter} handleEdit={handleEdit} setForm={setForm} form={form} handleDelete={handleDelete} />
                             <div className="total-money">
                                 <Typography sx={
                                     {
@@ -168,17 +169,17 @@ export const ExpenseByDate = () => {
                 }
             </div>
             <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                  />
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     );
 };

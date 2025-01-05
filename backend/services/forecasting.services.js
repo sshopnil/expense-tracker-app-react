@@ -31,9 +31,9 @@ exports.arima_forecast = async (req, res, next) => {
     const ts = expenses.map((item) => item.amount); 
 
     const arima = new ARIMA({
-      p: 2,
+      p: 0,
       d: 0,
-      q: 2,
+      q: 7,
       P: 1,
       D: 0,
       Q: 1,
@@ -43,7 +43,7 @@ exports.arima_forecast = async (req, res, next) => {
 
     const [pred_values, errors] = arima.predict(7); 
 
-    const latest_date = new Date(expenses[expenses.length - 1].date);
+    const latest_date = new Date();
 
     const future_dates = [];
     for (let i = 1; i <= 7; i++) {
@@ -52,10 +52,13 @@ exports.arima_forecast = async (req, res, next) => {
       future_dates.push(dayjs(future_date).format('DD/MM/YYYY'));
     }
 
-    const predicted_date_amount = future_dates.map((date, index) => ({
-      date: date,
-      amount: pred_values[index].toFixed(2)
-    }));
+    const predicted_date_amount = future_dates.map((date, index) => {
+      const predictedAmount = pred_values[index] < 0 ? 0 : pred_values[index];
+      return {
+        date: date,
+        amount: predictedAmount.toFixed(2)
+      };
+    });
 
     res.status(200).json(predicted_date_amount); 
   } catch (e) {

@@ -257,6 +257,9 @@ exports.edit_expense = async (req, res, next) => {
 
         const availableFund = await FundModel.findOne({ userId: old_expense.userId });
         const remaining_fund = availableFund.totalFund + new_amount;
+        if (remaining_fund < 0) {
+            return res.status(400).json({ msg: "Insufficient Fund Available" });
+        }
         availableFund.totalFund = remaining_fund;
 
 
