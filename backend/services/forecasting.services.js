@@ -7,14 +7,14 @@ exports.arima_forecast = async (req, res, next) => {
 
   const { user_id } = req.params;
   const expenses = await ExpenseSchema.find({ userId: user_id }).sort({ date: 1 });
-// console.log(expenses);
+  // console.log(expenses);
   try {
     if (expenses.length < 10) {
       // If there are no expenses, return initialized object with forecasted values set to 0
       const future_dates = [];
       const forecast_data = [];
       const today = dayjs().format('DD/MM/YYYY');
-      
+
       for (let i = 1; i <= 7; i++) {
         const future_date = dayjs().add(i, 'day').format('DD/MM/YYYY');
         future_dates.push(future_date);
@@ -24,11 +24,32 @@ exports.arima_forecast = async (req, res, next) => {
         });
       }
 
-      return res.status(201).json({forecast_data, msg:"no"});
+      return res.status(201).json({ forecast_data, msg: "no" });
     }
 
     const ARIMA = await ARIMAPromise;
-    const ts = expenses.map((item) => item.amount); 
+
+    const dailyTotals = {};
+
+    expenses.forEach(expense => {
+      const date = dayjs(expense.date).format('DD-MM-YYYY');
+
+      if (!dailyTotals[date]) {
+        dailyTotals[date] = {
+          total: 0,
+          expenses: []
+        };
+      }
+      dailyTotals[date].total += expense.amount;
+    });
+
+    const groupedByDate = Object.entries(dailyTotals).map(([date, data]) => ({
+      date,
+      total: data.total,
+    }));
+
+    // console.log(groupedByDate);
+    const ts = groupedByDate.map((item) => item.total);
 
     //seasonal arima 
     const arima = new ARIMA({
@@ -42,7 +63,7 @@ exports.arima_forecast = async (req, res, next) => {
       verbose: false
     }).train(ts);
 
-    const [pred_values, errors] = arima.predict(7); 
+    const [pred_values, errors] = arima.predict(7);
 
     const latest_date = new Date();
 
@@ -61,7 +82,7 @@ exports.arima_forecast = async (req, res, next) => {
       };
     });
 
-    res.status(200).json(predicted_date_amount); 
+    res.status(200).json(predicted_date_amount);
   } catch (e) {
     console.error('Error during ARIMA prediction:', e);
     res.status(500).json({ msg: 'Error during ARIMA prediction' });
