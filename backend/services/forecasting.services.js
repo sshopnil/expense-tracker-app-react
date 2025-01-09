@@ -13,10 +13,10 @@ exports.arima_forecast = async (req, res, next) => {
       // If there are no expenses, return initialized object with forecasted values set to 0
       const future_dates = [];
       const forecast_data = [];
-      const today = dayjs().format('DD/MM/YYYY');
+      const today = dayjs();
 
       for (let i = 1; i <= 7; i++) {
-        const future_date = dayjs().add(i, 'day').format('DD/MM/YYYY');
+        const future_date = dayjs().add(i, 'day');
         future_dates.push(future_date);
         forecast_data.push({
           date: future_date,
@@ -32,7 +32,7 @@ exports.arima_forecast = async (req, res, next) => {
     const dailyTotals = {};
 
     expenses.forEach(expense => {
-      const date = dayjs(expense.date).format('DD-MM-YYYY');
+      const date = dayjs(expense.date);
 
       if (!dailyTotals[date]) {
         dailyTotals[date] = {
@@ -71,7 +71,7 @@ exports.arima_forecast = async (req, res, next) => {
     for (let i = 1; i <= 7; i++) {
       const future_date = new Date(latest_date);
       future_date.setDate(latest_date.getDate() + i);
-      future_dates.push(dayjs(future_date).format('DD/MM/YYYY'));
+      future_dates.push(dayjs(future_date));
     }
 
     const predicted_date_amount = future_dates.map((date, index) => {
